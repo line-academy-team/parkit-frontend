@@ -1,4 +1,5 @@
 import { Shops } from "./shop";
+import { ParkingRecords } from "./parkingRecords";
 
 export interface ParkingDiscounts {
     id: number;
@@ -7,4 +8,5 @@ export interface ParkingDiscounts {
     createdAt: number;
     updatedAt: number;
     shop: Pick<Shops, "id" | "name">;
+    parkingRecords: Pick<ParkingRecords, "id">;
 }

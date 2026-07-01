@@ -1,4 +1,6 @@
 import { ParkingDiscounts } from "./parkingDiscounts";
+import { ParkingSlots } from "./parkingSlots";
+import { ParkingPayments } from "./parkingPayment";
 
 export interface ParkingRecords {
     id: number;
@@ -8,5 +10,7 @@ export interface ParkingRecords {
     createdAt: string;
     updatedAt: string;
     parkingSlotId: number;
+    parkingSlots: Pick<ParkingSlots, "id">;
     discounts: Pick<ParkingDiscounts, "id" | "discountMinute"> | null;
+    payment: Pick<ParkingPayments, "id">
 }
