@@ -1,0 +1,18 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --color-primary: #3586FF;       /* 메인 파랑, 주차 중 */
+        --color-navy: #284776;          /* 헤더, 로고 글자, 정산 완료 */
+        --color-danger: #FF7070;        /* 경고, 출차, 오류/정지 */
+        --color-warning: #FFB578;       /* 할인 적용, 보조 강조 */
+        --color-accent: #FFF4A3;        /* 할인 정보 배경, 공지 강조 */
+
+        --color-text-main: #3E3E41;     /* 본문 텍스트 */
+        --color-text-sub: #989899;      /* 부가 설명, 비활성 텍스트 */
+        --color-surface: #F1F1F1;       /* 카드·입력창 배경, 빈 자리 */
+        --color-bg: #FFFEF9;            /* 전체 페이지 배경 (아이보리) */
+    }
+}
