@@ -8,8 +8,6 @@ export interface Admins {
     name: string;
     createdAt: string;
     updatedAt: string;
-    shopId: number | null;
     shop: Pick<Shops, "id" | "name"> | null;
-    noticeId: number | null;
     notices: Pick<Notice, "id"> | null;
 }
