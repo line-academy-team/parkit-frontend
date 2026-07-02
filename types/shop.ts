@@ -6,9 +6,9 @@ export const ShopStatus = {
     APPROVED: "APPROVED",
     REJECTED: "REJECTED",
     SUSPENDED: "SUSPENDED",
-}
+};
 
-export type ShopStatusType = (typeof ShopStatus) [keyof typeof ShopStatus];
+export type ShopStatusType = (typeof ShopStatus)[keyof typeof ShopStatus];
 
 export interface Shops {
     id: number;

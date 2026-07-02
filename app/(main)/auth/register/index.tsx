@@ -1,8 +1,8 @@
 import { useRouter } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterShopInputType, registerShopSchema } from "@/schemas/user/registerShopSchema";
+import { RegisterShopInputType, registerShopSchema } from "../../../../schemas/user/registerShopSchema";
 import { Controller, useForm } from "react-hook-form";
-import userApi from "@/api/user/userApi";
+import userApi from "../../../../api/user/userApi";
 import {
     Alert,
     KeyboardAvoidingView,
