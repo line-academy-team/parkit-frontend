@@ -7,7 +7,7 @@ export const ShopStatus = {
 
 export type ShopStatusType = (typeof ShopStatus) [keyof typeof ShopStatus];
 
-export interface Shop {
+export interface Shops {
     id: number;
     loginId: string;
     name: string;

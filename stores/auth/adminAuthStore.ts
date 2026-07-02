@@ -2,15 +2,13 @@ import { Admins } from "../../types/admin";
 import { Platform } from "react-native";
 import { createJSONStorage, persist } from "zustand/middleware/persist";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { createStore } from "zustand/vanilla";
+import { create } from "zustand";
 
-export type AuthState = {
+interface AdminAuthState {
     isLoggedIn: boolean;
     token: string | null;
-};
-
-interface AdminAuthState extends AuthState {
     admin: Admins | null;
+
     login: (admin: Admins, token: string) => void;
     logout: VoidFunction;
 }
@@ -20,7 +18,7 @@ export const storage =
         ? createJSONStorage(() => localStorage)
         : createJSONStorage(() => AsyncStorage);
 
-export const AdminAuthStore = createStore<AdminAuthState>()(
+export const adminAuthStore = create<AdminAuthState>()(
     persist(
         set => ({
             isLoggedIn: false,

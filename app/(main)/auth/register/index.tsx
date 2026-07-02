@@ -39,14 +39,14 @@ function AuthRegisterPage() {
 
             await userApi.registerShop(submitData);
 
-            // if (Platform.OS === "web") {
-            //     window.alert("회원가입이 완료되었습니다. 로그인을 진행해주세요.");
-            //     router.push("/auth/login");
-            // } else {
-            //     Alert.alert("가입 완료", "회원가입이 완료되었습니다. 로그인을 진행해주세요", [
-            //         { text: "확인", onPress: () => router.push("/auth/login") },
-            //     ]);
-            // }
+            if (Platform.OS === "web") {
+                window.alert("회원가입이 완료되었습니다. 로그인을 진행해주세요.");
+                router.push("/auth/login");
+            } else {
+                Alert.alert("가입 완료", "회원가입이 완료되었습니다. 로그인을 진행해주세요", [
+                    { text: "확인", onPress: () => router.push("/auth/login") },
+                ]);
+            }
         } catch (error) {
             console.log(error);
             let errorMessage = "회원가입 중 오류가 발생했습니다.";
