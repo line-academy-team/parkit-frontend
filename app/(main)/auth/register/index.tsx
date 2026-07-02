@@ -2,9 +2,10 @@ import { useRouter } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterShopInputType, registerShopSchema } from "@/schemas/user/registerShopSchema";
 import { Controller, useForm } from "react-hook-form";
-import userApi from "@/api/user/userApi";
+import userApi from "../../../../api/user/userApi";
 import {
     Alert,
+    Image,
     KeyboardAvoidingView,
     Platform,
     Pressable,
@@ -14,6 +15,7 @@ import {
     View,
 } from "react-native";
 import { isAxiosError } from "axios";
+import { twMerge } from "tailwind-merge";
 
 function AuthRegisterPage() {
     const router = useRouter();
@@ -64,6 +66,33 @@ function AuthRegisterPage() {
         <KeyboardAvoidingView>
             <ScrollView>
                 <View>
+                    <View className={"h-6 bg-gray-300 items-center justify-center"}>
+                        <Text>안드로이드 기본 상단 바 영역</Text>
+                    </View>
+                    <View
+                        className={twMerge(
+                            "h-14 relative",
+                            "bg-brand-surface",
+                            "items-center justify-center",
+                        )}>
+                        <Text className={"text-2xl font-bold"}>상점 등록</Text>
+                        <View
+                            className={twMerge(
+                                "h-14 w-14 absolute",
+                                "items-center justify-center",
+                                "left-0",
+                            )}>
+                            <Image
+                                source={require("@/assets/images/register/backBtn.png")}
+                                resizeMode="contain"
+                                className="absolute"
+                                style={{
+                                    width: 16,
+                                    height: 16,
+                                }}
+                            />
+                        </View>
+                    </View>
                     <Text>회원가입</Text>
                     <Controller
                         control={control}
