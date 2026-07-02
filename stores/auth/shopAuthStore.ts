@@ -1,4 +1,4 @@
-import { Shops } from "@/types/shop";
+import { Shops } from "../../types/shop";
 import { createJSONStorage, persist } from "zustand/middleware";
 import { create } from "zustand";
 import { Platform } from "react-native";
