@@ -1,6 +1,6 @@
-import { Admins } from "../../types/admin";
+import { Admins } from "@/types/admin";
 import { Platform } from "react-native";
-import { createJSONStorage, persist } from "zustand/middleware/persist";
+import { createJSONStorage, persist } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 
@@ -27,6 +27,6 @@ export const adminAuthStore = create<AdminAuthState>()(
             login: (admin, token) => set({ isLoggedIn: true, token, admin }),
             logout: () => set({ isLoggedIn: false, token: null, admin: null }),
         }),
-        { name: "admin-auth-storage", storage},
+        { name: "admin-auth-storage", storage },
     ),
 );

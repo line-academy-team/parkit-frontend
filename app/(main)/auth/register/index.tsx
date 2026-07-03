@@ -1,6 +1,9 @@
 import { useRouter } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterShopInputType, registerShopSchema } from "../../../../schemas/user/registerShopSchema";
+import {
+    RegisterShopInputType,
+    registerShopSchema,
+} from "../../../../schemas/user/registerShopSchema";
 import { Controller, useForm } from "react-hook-form";
 import userApi from "../../../../api/user/userApi";
 import {
@@ -16,6 +19,7 @@ import {
 } from "react-native";
 import { isAxiosError } from "axios";
 import { twMerge } from "tailwind-merge";
+import BackButton from "@/components/common/BackButton";
 
 function AuthRegisterPage() {
     const router = useRouter();
@@ -43,10 +47,10 @@ function AuthRegisterPage() {
 
             if (Platform.OS === "web") {
                 window.alert("회원가입이 완료되었습니다. 로그인을 진행해주세요.");
-                router.push("/auth/login");
+                router.push("/");
             } else {
                 Alert.alert("가입 완료", "회원가입이 완료되었습니다. 로그인을 진행해주세요", [
-                    { text: "확인", onPress: () => router.push("/auth/login") },
+                    { text: "확인", onPress: () => router.push("/") },
                 ]);
             }
         } catch (error) {
@@ -76,22 +80,7 @@ function AuthRegisterPage() {
                             "items-center justify-center",
                         )}>
                         <Text className={"text-2xl font-bold"}>상점 등록</Text>
-                        <View
-                            className={twMerge(
-                                "h-14 w-14 absolute",
-                                "items-center justify-center",
-                                "left-0",
-                            )}>
-                            <Image
-                                source={require("@/assets/images/register/backBtn.png")}
-                                resizeMode="contain"
-                                className="absolute"
-                                style={{
-                                    width: 16,
-                                    height: 16,
-                                }}
-                            />
-                        </View>
+                        <BackButton />
                     </View>
                     <Text>회원가입</Text>
                     <Controller
