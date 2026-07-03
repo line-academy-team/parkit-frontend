@@ -24,10 +24,10 @@ function InputGroup({
 
     return (
         <View className="mt-5">
-            <Text className={"text-brand-txt-main font-semibold text-sm"}>{label}</Text>
+            <Text className={"text-brand-txt-main font-pretendard-semibold text-sm"}>{label}</Text>
             <TextInput
                 className={twMerge(
-                    "mt-3 p-3 relative",
+                    "mt-3 p-3 relative font-pretendard",
                     "bg-brand-surface rounded-xl border border-brand-border",
                     "focus:bg-brand-bg focus:outline-brand-primary focus:border-2",
                     errorMessage && "border-brand-danger border-2",
@@ -39,7 +39,7 @@ function InputGroup({
             {isPassword && (
                 // TODO : 언젠가 비밀번호 숨기기/보이기 전환하기
                 <Pressable
-                    className={twMerge("h-5 w-5 absolute", "right-4 top-12")}
+                    className={twMerge("h-5 w-5 absolute", "right-4 top-11")}
                     onPress={() => {
                         setVisibility(!visibility);
                     }}>

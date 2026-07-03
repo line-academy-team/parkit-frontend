@@ -81,7 +81,7 @@ function AuthRegisterPage() {
             <ScrollView>
                 <View>
                     <View className={"h-6 bg-gray-300 items-center justify-center"}>
-                        <Text>안드로이드 기본 상단 바 영역</Text>
+                        <Text className={"font-pretendard"}>안드로이드 기본 상단 바 영역</Text>
                     </View>
                     <View
                         className={twMerge(
@@ -89,15 +89,15 @@ function AuthRegisterPage() {
                             "bg-brand-surface",
                             "items-center justify-center",
                         )}>
-                        <Text className={"text-2xl font-bold"}>상점 등록</Text>
+                        <Text className={"text-2xl font-pretendard-bold"}>상점 등록</Text>
                         <BackButton />
                     </View>
                     <View className={"mx-5"}>
                         <View className={"mt-7 mb-2"}>
-                            <Text className={"text-brand-navy font-bold text-2xl"}>
+                            <Text className={"text-brand-navy font-pretendard-bold text-2xl"}>
                                 상점 정보를 입력해 주세요
                             </Text>
-                            <Text className={"text-brand-txt-sub mt-2"}>
+                            <Text className={"text-brand-txt-sub mt-2 font-pretendard"}>
                                 등록된 상점은 관리자 승인 후 <br />
                                 주차 할인 서비스를 이용할 수 있습니다.
                             </Text>
@@ -183,7 +183,7 @@ function AuthRegisterPage() {
                             )}>
                             <Text
                                 className={twMerge(
-                                    "text-brand-txt-sub font-medium text-xl",
+                                    "text-brand-txt-sub font-pretendard-medium text-xl",
                                     isFilled && "text-brand-bg",
                                 )}>
                                 상점 등록
@@ -191,8 +191,12 @@ function AuthRegisterPage() {
                         </Pressable>
                     </View>
                     <View className="mt-5 flex-row items-center justify-center gap-2">
-                        <Text className="text-brand-txt-sub font-semibold">이미 등록하셨나요?</Text>
-                        <Text className="text-brand-primary font-semibold">상점 로그인</Text>
+                        <Text className="text-brand-txt-sub font-pretendard-semibold">
+                            이미 등록하셨나요?
+                        </Text>
+                        <Text className="text-brand-primary font-pretendard-semibold">
+                            상점 로그인
+                        </Text>
                     </View>
                 </View>
             </ScrollView>

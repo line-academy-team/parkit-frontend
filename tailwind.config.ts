@@ -17,8 +17,15 @@ export default {
     ],
     presets: [require("nativewind/preset")],
     plugins: [],
+
     theme: {
         extend: {
+            fontFamily: {
+                pretendard: ["Pretendard-Regular"],
+                "pretendard-medium": ["Pretendard-Medium"],
+                "pretendard-semibold": ["Pretendard-SemiBold"],
+                "pretendard-bold": ["Pretendard-Bold"],
+            },
             colors: {
                 brand: {
                     primary: "var(--color-primary)",

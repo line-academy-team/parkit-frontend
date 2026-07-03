@@ -7,7 +7,7 @@ interface ErrorMessageProps {
 function ErrorMessage({ children }: ErrorMessageProps) {
     return (
         <View className={"mt-1.5"}>
-            <Text className={"text-brand-danger text-sm font-medium"}>{children}</Text>
+            <Text className={"text-brand-danger text-sm font-pretendard-medium"}>{children}</Text>
         </View>
     );
 }
