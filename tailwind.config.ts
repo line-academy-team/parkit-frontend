@@ -27,7 +27,6 @@ export default {
                     warning: "var(--color-warning)",
                     accent: "var(--color-accent)",
                     surface: "var(--color-surface)",
-                    bg: "var(--color-bg)",
                     txt: {
                         main: "var(--color-text-main)",
                         sub: "var(--color-text-sub)",
@@ -36,11 +35,12 @@ export default {
             },
         },
         safelist: [
-            // 코드에서 니가 찾지 못해도, 여기에 기록한 클래스는 만들어줘
             {
-                pattern:
-                    /(bg|text|border)-(primary|secondary|error|success|warning|info)-(main|contrast)/,
+                pattern: /(bg|text|border)-brand-(primary|navy|danger|warning|accent|surface)/,
             },
+            {
+                pattern: /(bg|text|border)-brand-txt-(main|sub)/,
+            }
         ],
     },
 } satisfies Config;

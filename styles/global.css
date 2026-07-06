@@ -13,6 +13,5 @@
         --color-text-main: #3E3E41;     /* 본문 텍스트 */
         --color-text-sub: #989899;      /* 부가 설명, 비활성 텍스트 */
         --color-surface: #F1F1F1;       /* 카드·입력창 배경, 빈 자리 */
-        --color-bg: #FFFEF9;            /* 전체 페이지 배경 (아이보리) */
     }
 }

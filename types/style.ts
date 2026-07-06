@@ -1,4 +1,4 @@
-export type StyleColorType = "primary" | "navy" | "danger" | "warning" | "accent" | "surface" | "bg" | "txt";
+export type StyleColorType = "primary" | "navy" | "danger" | "warning" | "accent" | "surface" | "txt";
 export type StyleVariantType = "contained" | "outlined" | "text" | "icon";
 export type StyleSizeType = "small" | "medium" | "large";
 
