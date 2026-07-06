@@ -1,13 +1,17 @@
-import "@/styles/global.css";
+import "../styles/global.css";
 
 import { Slot } from "expo-router";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-
+import { useThemeStore } from "@/stores/theme/useThemeStore";
+import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
 SplashScreen.preventAutoHideAsync().then(() => {});
-
 export default function RootLayout() {
+
+    const { theme } = useThemeStore();
+
     const [fontsLoaded, fontError] = useFonts({
         "Pretendard-Thin": require("@/assets/fonts/Pretendard-Thin.otf"),
         "Pretendard-ExtraLight": require("@/assets/fonts/Pretendard-ExtraLight.otf"),
@@ -31,5 +35,18 @@ export default function RootLayout() {
         return null;
     }
 
-    return <Slot />;
+
+    return (
+        <SafeAreaProvider>
+            <StatusBar
+                style={
+                    theme === "navy" || theme === "primary" || theme === "danger" ? "light" : "dark"
+                }
+            />
+
+            <SafeAreaView className={"flex-1 bg-background-default"}>
+                <Slot />
+            </SafeAreaView>
+        </SafeAreaProvider>
+    );
 }

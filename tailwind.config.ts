@@ -17,7 +17,6 @@ export default {
     ],
     presets: [require("nativewind/preset")],
     plugins: [],
-
     theme: {
         extend: {
             fontFamily: {
@@ -44,5 +43,13 @@ export default {
                 },
             },
         },
+        safelist: [
+            {
+                pattern: /(bg|text|border)-brand-(primary|navy|danger|warning|accent|surface)/,
+            },
+            {
+                pattern: /(bg|text|border)-brand-txt-(main|sub)/,
+            }
+        ],
     },
 } satisfies Config;
