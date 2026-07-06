@@ -8,13 +8,11 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import userApi from "../../../../api/user/userApi";
 import {
     Alert,
-    Image,
     KeyboardAvoidingView,
     Platform,
     Pressable,
     ScrollView,
     Text,
-    TextInput,
     View,
 } from "react-native";
 import { isAxiosError } from "axios";
@@ -61,14 +59,6 @@ function AuthRegisterPage() {
             } else {
                 Alert.alert("가입 완료", "회원가입이 완료되었습니다. 로그인을 진행해주세요", [
                     { text: "확인", onPress: () => router.push("/auth/login") },
-                ]);
-            }
-            if (Platform.OS === "web") {
-                window.alert("회원가입이 완료되었습니다. 로그인을 진행해주세요.");
-                router.push("/");
-            } else {
-                Alert.alert("가입 완료", "회원가입이 완료되었습니다. 로그인을 진행해주세요", [
-                    { text: "확인", onPress: () => router.push("/") },
                 ]);
             }
         } catch (error) {

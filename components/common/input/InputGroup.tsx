@@ -37,7 +37,6 @@ function InputGroup({
                 {...props}
             />
             {isPassword && (
-                // TODO : 언젠가 비밀번호 숨기기/보이기 전환하기
                 <Pressable
                     className={twMerge("h-5 w-5 absolute", "right-4 top-11")}
                     onPress={() => {
