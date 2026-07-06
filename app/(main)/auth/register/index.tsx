@@ -5,7 +5,7 @@ import {
     registerShopSchema,
 } from "@/schemas/user/registerShopSchema";
 import { Controller, useForm, useWatch } from "react-hook-form";
-import userApi from "../../../../api/user/userApi";
+import userApi from "@/api/user/userApi";
 import {
     Alert,
     KeyboardAvoidingView,
@@ -17,8 +17,8 @@ import {
 } from "react-native";
 import { isAxiosError } from "axios";
 import { twMerge } from "tailwind-merge";
-import BackButton from "../../../../components/common/button/BackButton";
-import InputGroup from "../../../../components/common/input/InputGroup";
+import BackButton from "@/components/common/button/BackButton";
+import InputGroup from "@/components/common/input/InputGroup";
 
 function AuthRegisterPage() {
     const router = useRouter();

@@ -1,7 +1,7 @@
-import { RegisterShopInputType } from "../../schemas/user/registerShopSchema";
-import { Shops } from "../../types/shop";
-import axiosInstance from "../../api/axiosInstance";
-import { LoginInputType } from "../../schemas/user/loginShopShema";
+import { RegisterShopInputType } from "@/schemas/user/registerShopSchema";
+import { Shops } from "@/types/shop";
+import axiosInstance from "@/api/axiosInstance";
+import { LoginInputType } from "@/schemas/user/loginShopShema";
 
 const registerShop = async (
     data: Omit<RegisterShopInputType, "confirmPassword">,

@@ -3,12 +3,12 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginInputType, loginSchema } from "@/schemas/user/loginShopShema";
 import { isAxiosError } from "axios";
-import userApi from "../../../../api/user/userApi";
+import userApi from "@/api/user/userApi";
 import { shopAuthStore } from "@/stores/auth/shopAuthStore";
 import { KeyboardAvoidingView, Pressable, ScrollView, Text, View } from "react-native";
 import { twMerge } from "tailwind-merge";
-import BackButton from "../../../../components/common/button/BackButton";
-import InputGroup from "../../../../components/common/input/InputGroup";
+import BackButton from "@/components/common/button/BackButton";
+import InputGroup from "@/components/common/input/InputGroup";
 import ErrorMessage from "@/components/common/form/ErrorMessage";
 
 function AuthLoginPage() {
@@ -129,7 +129,7 @@ function AuthLoginPage() {
                             onPress={handleSubmit(onSubmit)}
                             className={twMerge(
                                 "mt-5 justify-center items-center h-[52px] bg-brand-surface rounded-xl",
-                                isFilled && "text-brand-navy",
+                                isFilled && "bg-brand-navy",
                             )}>
                             <Text
                                 className={twMerge(
