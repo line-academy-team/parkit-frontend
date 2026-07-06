@@ -15,7 +15,13 @@ const loginShop = async (data: LoginInputType): Promise<{ shop: Shops, token: st
     return response.data.data;
 };
 
+const getShop= async () => {
+    const response = await axiosInstance.get("/shop/me");
+    return response.data.data;
+}
+
 export default {
     registerShop,
     loginShop,
+    getShop,
 };

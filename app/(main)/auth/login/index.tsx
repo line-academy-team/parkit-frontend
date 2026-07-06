@@ -10,6 +10,7 @@ import { twMerge } from "tailwind-merge";
 import BackButton from "@/components/common/button/BackButton";
 import InputGroup from "@/components/common/input/InputGroup";
 import ErrorMessage from "@/components/common/form/ErrorMessage";
+import Title from "@/components/common/title/Title";
 
 function AuthLoginPage() {
     const router = useRouter();
@@ -62,18 +63,11 @@ function AuthLoginPage() {
         <KeyboardAvoidingView>
             <ScrollView>
                 <View>
-                    <View className={"h-6 bg-gray-300 items-center justify-center"}>
-                        <Text className={"font-pretendard"}>안드로이드 기본 상단 바 영역</Text>
-                    </View>
-                    <View
-                        className={twMerge(
-                            "h-14 relative",
-                            "bg-brand-surface",
-                            "items-center justify-center",
-                        )}>
-                        <Text className={"text-2xl font-pretendard-bold"}>상점 로그인</Text>
+                    <Title
+                        title={"상점 로그인"}
+                        isCenter>
                         <BackButton />
-                    </View>
+                    </Title>
                     <View className={"mx-5"}>
                         <View className={"mt-7 mb-2"}>
                             <Text className={"text-brand-navy font-pretendard-bold text-2xl"}>
