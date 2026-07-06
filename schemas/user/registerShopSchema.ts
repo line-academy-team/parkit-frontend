@@ -8,7 +8,7 @@ export const registerShopSchema = z
         name: z.string().min(1, "상호명을 정확히 입력해주세요."),
     })
     .refine(data => data.password === data.confirmPassword, {
-        path: ["passwordConfirm"],
+        path: ["confirmPassword"],
         message: "비밀번호가 일치하지 않습니다.",
     });
 

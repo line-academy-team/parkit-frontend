@@ -17,8 +17,15 @@ export default {
     ],
     presets: [require("nativewind/preset")],
     plugins: [],
+
     theme: {
         extend: {
+            fontFamily: {
+                pretendard: ["Pretendard-Regular"],
+                "pretendard-medium": ["Pretendard-Medium"],
+                "pretendard-semibold": ["Pretendard-SemiBold"],
+                "pretendard-bold": ["Pretendard-Bold"],
+            },
             colors: {
                 brand: {
                     primary: "var(--color-primary)",
@@ -31,16 +38,11 @@ export default {
                     txt: {
                         main: "var(--color-text-main)",
                         sub: "var(--color-text-sub)",
+                        light: "var(--color-text-light)",
                     },
+                    border: "var(--color-border-light)",
                 },
             },
         },
-        safelist: [
-            // 코드에서 니가 찾지 못해도, 여기에 기록한 클래스는 만들어줘
-            {
-                pattern:
-                    /(bg|text|border)-(primary|secondary|error|success|warning|info)-(main|contrast)/,
-            },
-        ],
     },
 } satisfies Config;

@@ -1,10 +1,14 @@
 import { useRouter } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { RegisterShopInputType, registerShopSchema } from "../../../../schemas/user/registerShopSchema";
-import { Controller, useForm } from "react-hook-form";
+import {
+    RegisterShopInputType,
+    registerShopSchema,
+} from "../../../../schemas/user/registerShopSchema";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import userApi from "../../../../api/user/userApi";
 import {
     Alert,
+    Image,
     KeyboardAvoidingView,
     Platform,
     Pressable,
@@ -14,6 +18,9 @@ import {
     View,
 } from "react-native";
 import { isAxiosError } from "axios";
+import { twMerge } from "tailwind-merge";
+import BackButton from "@/components/common/button/BackButton";
+import InputGroup from "@/components/common/input/InputGroup";
 
 function AuthRegisterPage() {
     const router = useRouter();
@@ -29,9 +36,18 @@ function AuthRegisterPage() {
         defaultValues: {
             loginId: "",
             password: "",
+            confirmPassword: "",
             name: "",
         },
     });
+
+    const { loginId, password, name } = useWatch({
+        control,
+    });
+
+    const isFilled = Boolean(
+        loginId?.trim() && password?.trim() && name?.trim() && !errors.confirmPassword,
+    );
 
     const onSubmit = async (data: RegisterShopInputType) => {
         try {
@@ -45,6 +61,14 @@ function AuthRegisterPage() {
             } else {
                 Alert.alert("가입 완료", "회원가입이 완료되었습니다. 로그인을 진행해주세요", [
                     { text: "확인", onPress: () => router.push("/auth/login") },
+                ]);
+            }
+            if (Platform.OS === "web") {
+                window.alert("회원가입이 완료되었습니다. 로그인을 진행해주세요.");
+                router.push("/");
+            } else {
+                Alert.alert("가입 완료", "회원가입이 완료되었습니다. 로그인을 진행해주세요", [
+                    { text: "확인", onPress: () => router.push("/") },
                 ]);
             }
         } catch (error) {
@@ -64,90 +88,124 @@ function AuthRegisterPage() {
         <KeyboardAvoidingView>
             <ScrollView>
                 <View>
-                    <Text>회원가입</Text>
-                    <Controller
-                        control={control}
-                        name={"loginId"}
-                        render={({ field: { onChange, onBlur, value } }) => {
-                            return (
-                                <>
-                                    <Text>아이디</Text>
-                                    <TextInput
-                                        placeholder={"4자 이상 입력해주세요"}
+                    <View className={"h-6 bg-gray-300 items-center justify-center"}>
+                        <Text className={"font-pretendard"}>안드로이드 기본 상단 바 영역</Text>
+                    </View>
+                    <View
+                        className={twMerge(
+                            "h-14 relative",
+                            "bg-brand-surface",
+                            "items-center justify-center",
+                        )}>
+                        <Text className={"text-2xl font-pretendard-bold"}>상점 등록</Text>
+                        <BackButton />
+                    </View>
+                    <View className={"mx-5"}>
+                        <View className={"mt-7 mb-2"}>
+                            <Text className={"text-brand-navy font-pretendard-bold text-2xl"}>
+                                상점 정보를 입력해 주세요
+                            </Text>
+                            <Text className={"text-brand-txt-sub mt-2 font-pretendard"}>
+                                등록된 상점은 관리자 승인 후 <br />
+                                주차 할인 서비스를 이용할 수 있습니다.
+                            </Text>
+                        </View>
+                        <Controller
+                            control={control}
+                            name={"loginId"}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <InputGroup
+                                        label={"상점 아이디"}
+                                        placeholder={"아이디를 입력해 주세요"}
                                         onBlur={onBlur}
                                         onChangeText={onChange}
                                         value={value}
+                                        infoMessage={"4자 이상 20자 이하로 입력해 주세요."}
+                                        errorMessage={errors.loginId?.message}
                                     />
-                                    {errors.loginId?.message && (
-                                        <Text>{errors.loginId.message}</Text>
-                                    )}
-                                </>
-                            );
-                        }}
-                    />
-                    <Controller
-                        control={control}
-                        name={"password"}
-                        render={({ field: { onChange, onBlur, value } }) => {
-                            return (
-                                <>
-                                    <Text>비밀번호</Text>
-                                    <TextInput
-                                        placeholder={"6자 이상 입력해주세요"}
-                                        secureTextEntry={true}
+                                );
+                            }}
+                        />
+                        <Controller
+                            control={control}
+                            name={"password"}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <InputGroup
+                                        label={"비밀번호"}
+                                        placeholder={"비밀번호를 입력해 주세요"}
                                         onBlur={onBlur}
                                         onChangeText={onChange}
                                         value={value}
+                                        infoMessage={"6자 이상 입력해 주세요."}
+                                        errorMessage={errors.password?.message}
+                                        isPassword={true}
                                     />
-                                    {errors.password?.message && (
-                                        <Text>{errors.password.message}</Text>
-                                    )}
-                                </>
-                            );
-                        }}
-                    />
-                    <Controller
-                        control={control}
-                        name={"confirmPassword"}
-                        render={({ field: { onChange, onBlur, value } }) => {
-                            return (
-                                <>
-                                    <Text>비밀번호 확인</Text>
-                                    <TextInput
-                                        placeholder={"6자 이상 입력해주세요"}
-                                        secureTextEntry={true}
+                                );
+                            }}
+                        />
+                        <Controller
+                            control={control}
+                            name={"confirmPassword"}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <InputGroup
+                                        label={"비밀번호 확인"}
+                                        placeholder={"비밀번호를 한 번 더 입력해주세요."}
                                         onBlur={onBlur}
                                         onChangeText={onChange}
                                         value={value}
+                                        infoMessage={"위와 같은 비밀번호를 입력해주세요."}
+                                        errorMessage={errors.confirmPassword?.message}
+                                        isPassword={true}
                                     />
-                                    {errors.confirmPassword?.message && (
-                                        <Text>{errors.confirmPassword.message}</Text>
-                                    )}
-                                </>
-                            );
-                        }}
-                    />
-                    <Controller
-                        control={control}
-                        name={"name"}
-                        render={({ field: { onChange, onBlur, value } }) => {
-                            return (
-                                <>
-                                    <Text>상호명</Text>
-                                    <TextInput
-                                        placeholder={"상호명을 입력해주세요"}
+                                );
+                            }}
+                        />
+                        <Controller
+                            control={control}
+                            name={"name"}
+                            render={({ field: { onChange, onBlur, value } }) => {
+                                return (
+                                    <InputGroup
+                                        label={"상호명"}
+                                        placeholder={"상호명을 입력해 주세요"}
                                         onBlur={onBlur}
                                         onChangeText={onChange}
                                         value={value}
+                                        infoMessage={"40자 이하로 입력해 주세요."}
+                                        errorMessage={errors.name?.message}
                                     />
-                                    {errors.name?.message && <Text>{errors.name.message}</Text>}
-                                </>
-                            );
-                        }}
-                    />
-                    <Pressable disabled={isSubmitting} onPress={handleSubmit(onSubmit)}>
-                        <Text>회원가입</Text>
-                    </Pressable>
+                                );
+                            }}
+                        />
+
+                        <Pressable
+                            disabled={!isFilled || isSubmitting}
+                            onPress={handleSubmit(onSubmit)}
+
+                            className={twMerge(
+                                "mt-5 justify-center items-center h-[52px] bg-brand-surface rounded-xl",
+                                isFilled && "bg-brand-navy",
+                            )}>
+                            <Text
+                                className={twMerge(
+                                    "text-brand-txt-sub font-pretendard-medium text-xl",
+                                    isFilled && "text-brand-bg",
+                                )}>
+                                상점 등록
+                            </Text>
+                        </Pressable>
+                    </View>
+                    <View className="mt-5 flex-row items-center justify-center gap-2">
+                        <Text className="text-brand-txt-sub font-pretendard-semibold">
+                            이미 등록하셨나요?
+                        </Text>
+                        <Text className="text-brand-primary font-pretendard-semibold">
+                            상점 로그인
+                        </Text>
+                    </View>
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
