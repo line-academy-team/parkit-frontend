@@ -3,17 +3,17 @@ import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginInputType, loginSchema } from "@/schemas/user/loginShopShema";
 import { isAxiosError } from "axios";
-import userApi from "../../../../api/user/userApi";
-import { shopAuthStore } from "@/stores/auth/shopAuthStore";
+import { adminAuthStore } from "@/stores/auth/adminAuthStore";
 import { KeyboardAvoidingView, Pressable, ScrollView, Text, View } from "react-native";
 import { twMerge } from "tailwind-merge";
-import BackButton from "../../../../components/common/button/BackButton";
-import InputGroup from "../../../../components/common/input/InputGroup";
+import BackButton from "@/components/common/button/BackButton";
+import InputGroup from "@/components/common/input/InputGroup";
 import ErrorMessage from "@/components/common/form/ErrorMessage";
+import adminApi from "@/api/admin/adminApi";
 
 function AuthLoginPage() {
     const router = useRouter();
-    const { login } = shopAuthStore();
+    const { login } = adminAuthStore();
 
     const {
         control,
@@ -37,10 +37,10 @@ function AuthLoginPage() {
 
     const onSubmit = async (data: LoginInputType) => {
         try {
-            const result = await userApi.loginShop(data);
+            const result = await adminApi.loginAdmin(data);
 
-            if (!result.shop && result.token) {
-                login(result.shop, result.token);
+            if (!result.admin && result.token) {
+                login(result.admin, result.token);
             }
 
             router.push("/");
@@ -71,17 +71,13 @@ function AuthLoginPage() {
                             "bg-brand-surface",
                             "items-center justify-center",
                         )}>
-                        <Text className={"text-2xl font-pretendard-bold"}>상점 로그인</Text>
+                        <Text className={"text-2xl font-pretendard-bold"}>관리자 로그인</Text>
                         <BackButton />
                     </View>
                     <View className={"mx-5"}>
                         <View className={"mt-7 mb-2"}>
                             <Text className={"text-brand-navy font-pretendard-bold text-2xl"}>
-                                상점 계정으로 로그인
-                            </Text>
-                            <Text className={"text-brand-text-sub mt-2 font-pretendard"}>
-                                승인된 상점만 주차 할인 서비스를 <br />
-                                이용할 수 있습니다.
+                                관리자 계정으로 로그인
                             </Text>
                         </View>
                         <Controller
@@ -90,12 +86,12 @@ function AuthLoginPage() {
                             render={({ field: { onChange, onBlur, value } }) => {
                                 return (
                                     <InputGroup
-                                        label={"상점 아이디"}
+                                        label={"관리자 아이디"}
                                         placeholder={"아이디를 입력해 주세요"}
                                         onBlur={onBlur}
                                         onChangeText={onChange}
                                         value={value}
-                                        infoMessage={"정확한 상점 아이디를 입력해 주세요."}
+                                        infoMessage={"정확한 관리자 아이디를 입력해 주세요."}
                                         errorMessage={errors.loginId?.message}
                                     />
                                 );
@@ -112,7 +108,7 @@ function AuthLoginPage() {
                                         onBlur={onBlur}
                                         onChangeText={onChange}
                                         value={value}
-                                        infoMessage={"정확한 상점 비밀번호를 입력해 주세요."}
+                                        infoMessage={"정확한 관리자 비밀번호를 입력해 주세요."}
                                         errorMessage={errors.password?.message}
                                         isPassword
                                     />
@@ -139,16 +135,6 @@ function AuthLoginPage() {
                                 로그인
                             </Text>
                         </Pressable>
-                    </View>
-                    <View className={"mt-5 flex-row items-center justify-center gap-2"}>
-                        <Text className={"text-brand-txt-sub font-pretendard-semibold"}>
-                            아직 등록하지 않으셨나요?
-                        </Text>
-                        <Link href={"/auth/register"}>
-                            <Text className={"text-brand-primary font-pretendard-semibold"}>
-                                상점 등록
-                            </Text>
-                        </Link>
                     </View>
                 </View>
             </ScrollView>
