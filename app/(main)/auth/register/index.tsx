@@ -1,26 +1,24 @@
-import { useRouter } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
 import {
     RegisterShopInputType,
     registerShopSchema,
-} from "../../../../schemas/user/registerShopSchema";
+} from "@/schemas/user/registerShopSchema";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import userApi from "../../../../api/user/userApi";
 import {
     Alert,
-    Image,
     KeyboardAvoidingView,
     Platform,
     Pressable,
     ScrollView,
     Text,
-    TextInput,
     View,
 } from "react-native";
 import { isAxiosError } from "axios";
 import { twMerge } from "tailwind-merge";
-import BackButton from "@/components/common/button/BackButton";
-import InputGroup from "@/components/common/input/InputGroup";
+import BackButton from "../../../../components/common/button/BackButton";
+import InputGroup from "../../../../components/common/input/InputGroup";
 
 function AuthRegisterPage() {
     const router = useRouter();
@@ -202,9 +200,11 @@ function AuthRegisterPage() {
                         <Text className="text-brand-txt-sub font-pretendard-semibold">
                             이미 등록하셨나요?
                         </Text>
-                        <Text className="text-brand-primary font-pretendard-semibold">
-                            상점 로그인
-                        </Text>
+                        <Link href={"/auth/login"}>
+                            <Text className="text-brand-primary font-pretendard-semibold">
+                                상점 로그인
+                            </Text>
+                        </Link>
                     </View>
                 </View>
             </ScrollView>
