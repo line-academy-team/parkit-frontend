@@ -1,6 +1,6 @@
 import { Admins } from "../../types/admin";
 import { Platform } from "react-native";
-import { createJSONStorage, persist } from "zustand/middleware/persist";
+import { persist, createJSONStorage } from "zustand/middleware";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
 
