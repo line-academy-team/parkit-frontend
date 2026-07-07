@@ -5,12 +5,13 @@ import { LoginInputType, loginSchema } from "@/schemas/user/loginShopShema";
 import { isAxiosError } from "axios";
 import userApi from "@/api/user/userApi";
 import { shopAuthStore } from "@/stores/auth/shopAuthStore";
-import { KeyboardAvoidingView, Pressable, ScrollView, Text, View } from "react-native";
+import { KeyboardAvoidingView, ScrollView, Text, View } from "react-native";
 import { twMerge } from "tailwind-merge";
 import BackButton from "@/components/common/button/BackButton";
 import InputGroup from "@/components/common/input/InputGroup";
 import ErrorMessage from "@/components/common/form/ErrorMessage";
 import Title from "@/components/common/title/Title";
+import Button from "@/components/common/button/Button";
 
 function AuthLoginPage() {
     const router = useRouter();
@@ -72,6 +73,7 @@ function AuthLoginPage() {
                     <Title title={"상점 로그인"} isCenter>
                         <BackButton />
                     </Title>
+
                     <View className={"mx-5"}>
                         <View className={"mt-7 mb-2"}>
                             <Text className={"text-brand-navy font-pretendard-bold text-2xl"}>
@@ -82,6 +84,7 @@ function AuthLoginPage() {
                                 이용할 수 있습니다.
                             </Text>
                         </View>
+
                         <Controller
                             control={control}
                             name={"loginId"}
@@ -122,22 +125,20 @@ function AuthLoginPage() {
                             <ErrorMessage>{errors.root?.message}</ErrorMessage>
                         )}
 
-                        <Pressable
+                        <Button
+                            variant={isFilled ? "contained" : "text"}
                             disabled={!isFilled || isSubmitting}
+                            size={"large"}
                             onPress={handleSubmit(onSubmit)}
                             className={twMerge(
-                                "mt-5 justify-center items-center h-[52px] bg-brand-surface rounded-xl",
+                                "mt-5 bg-brand-surface",
                                 isFilled && "bg-brand-navy",
+                                isFilled && "text-brand-bg",
                             )}>
-                            <Text
-                                className={twMerge(
-                                    "text-brand-txt-sub font-pretendard-medium text-xl",
-                                    isFilled && "text-brand-bg",
-                                )}>
-                                로그인
-                            </Text>
-                        </Pressable>
+                            로그인
+                        </Button>
                     </View>
+
                     <View className={"mt-5 flex-row items-center justify-center gap-2"}>
                         <Text className={"text-brand-txt-sub font-pretendard-semibold"}>
                             아직 등록하지 않으셨나요?

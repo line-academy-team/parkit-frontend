@@ -1,16 +1,12 @@
 import { Link, useRouter } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    RegisterShopInputType,
-    registerShopSchema,
-} from "@/schemas/user/registerShopSchema";
+import { RegisterShopInputType, registerShopSchema } from "@/schemas/user/registerShopSchema";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import userApi from "@/api/user/userApi";
 import {
     Alert,
     KeyboardAvoidingView,
     Platform,
-    Pressable,
     ScrollView,
     Text,
     View,
@@ -20,6 +16,7 @@ import { twMerge } from "tailwind-merge";
 import BackButton from "@/components/common/button/BackButton";
 import InputGroup from "@/components/common/input/InputGroup";
 import Title from "@/components/common/title/Title";
+import Button from "@/components/common/button/Button";
 
 function AuthRegisterPage() {
     const router = useRouter();
@@ -90,6 +87,7 @@ function AuthRegisterPage() {
                     <Title title={"상점 등록"} isCenter>
                         <BackButton />
                     </Title>
+
                     <View className={"mx-5"}>
                         <View className={"mt-7 mb-2"}>
                             <Text className={"text-brand-navy font-pretendard-bold text-2xl"}>
@@ -171,23 +169,20 @@ function AuthRegisterPage() {
                             }}
                         />
 
-                        <Pressable
+                        <Button
+                            variant={isFilled ? "contained" : "text"}
                             disabled={!isFilled || isSubmitting}
+                            size={"large"}
                             onPress={handleSubmit(onSubmit)}
-
                             className={twMerge(
-                                "mt-5 justify-center items-center h-[52px] bg-brand-surface rounded-xl",
+                                "mt-5 bg-brand-surface",
                                 isFilled && "bg-brand-navy",
+                                isFilled && "text-brand-bg",
                             )}>
-                            <Text
-                                className={twMerge(
-                                    "text-brand-txt-sub font-pretendard-medium text-xl",
-                                    isFilled && "text-brand-bg",
-                                )}>
-                                상점 등록
-                            </Text>
-                        </Pressable>
+                            상점 등록
+                        </Button>
                     </View>
+
                     <View className="mt-5 flex-row items-center justify-center gap-2">
                         <Text className="text-brand-txt-sub font-pretendard-semibold">
                             이미 등록하셨나요?

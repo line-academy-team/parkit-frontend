@@ -1,39 +1,20 @@
 import { shopAuthStore } from "@/stores/auth/shopAuthStore";
 import { useRouter } from "expo-router";
-import { Alert, Image, Platform, Pressable, ScrollView, Text, View } from "react-native";
+import { Image, ScrollView, Text, View } from "react-native";
 import Title from "@/components/common/title/Title";
 import parkingIcon from "@/assets/images/parking.png";
 import { twMerge } from "tailwind-merge";
-import { useEffect, useState } from "react";
-import userApi from "@/api/user/userApi";
-import { Shops } from "@/types/shop";
+import Button from "@/components/common/button/Button";
 
 function ShopStatusPage() {
-    const { logout, isLoggedIn, token } = shopAuthStore();
+    const logout = shopAuthStore(state => state.logout);
     const router = useRouter();
-    const [shop, setShop] = useState<Shops | null>(null);
 
-    useEffect(() => {
-        const loadShop = async () => {
-            try {
-                const result = await userApi.getShop();
-                console.log(result);
-                setShop(result);
-            } catch (error) {
-                console.log(error);
-                const msg = "상점 정보를 불러오는데 실패했습니다.";
-                if (Platform.OS === "web") {
-                    alert(msg);
-                    router.push("/auth/login");
-                } else {
-                    Alert.alert("오류", msg);
-                    router.push("/auth/login");
-                }
-            }
-        };
+    const shop = shopAuthStore(state => state.shop);
 
-        loadShop().then(() => {});
-    }, [isLoggedIn, router, token]);
+    if (!shop) {
+        return null;
+    }
 
     const onLogout = () => {
         logout();
@@ -64,6 +45,7 @@ function ShopStatusPage() {
                             Park:<Text className="text-brand-primary">It</Text>
                         </Text>
                     </View>
+
                     <Text
                         className={twMerge(
                             "font-pretendard-bold mt-7 text-2xl",
@@ -75,12 +57,13 @@ function ShopStatusPage() {
                               ? "상점 등록이 거절되었습니다"
                               : "서비스 이용이 정지되었습니다"}
                     </Text>
+
                     <Text
                         className={twMerge("text-brand-txt-sub mt-3 text-center ", [
                             "font-pretendard",
                             "text-[15px]",
                             "leading-[22px]",
-                            "tracking-normal",
+                            "tracking-wider",
                         ])}>
                         {shop?.status === "PENDING"
                             ? "관리자가 등록하신 상점 정보를 검토하고 있습니다.\n승인이 완료된 후 서비스를 이용할 수 있습니다."
@@ -129,7 +112,7 @@ function ShopStatusPage() {
                             </Text>
                             <Text
                                 className={twMerge(
-                                    "text-brand-txt-main font-pretendard-medium",
+                                    "text-brand-txt-main font-pretendard-medium mr-2.5",
                                     "p-4 text-[15px]",
                                 )}>
                                 {shop?.createdAt &&
@@ -137,22 +120,17 @@ function ShopStatusPage() {
                             </Text>
                         </View>
                     </View>
-                    <Pressable
-                        onPress={statusPress}
-                        className="mt-7 justify-center items-center h-[52px] bg-brand-navy rounded-xl w-full">
-                        <Text className="text-brand-bg font-pretendard-semibold text-[16px]">
-                            {shop?.status === "PENDING" ? "승인상태 다시 확인하기" : "메인으로"}
-                        </Text>
-                    </Pressable>
-                    <Pressable
-                        onPress={onLogout}
-                        className={
-                            "mt-2 justify-center items-center h-[52px] rounded-xl w-full hover:bg-brand-surface"
-                        }>
-                        <Text className="text-brand-txt-sub font-pretendard-semibold text-[16px]">
-                            로그아웃
-                        </Text>
-                    </Pressable>
+
+                    <Button
+                        variant={"contained"}
+                        color={"navy"}
+                        className={"mt-7"}
+                        onPress={statusPress}>
+                        {shop?.status === "PENDING" ? "승인 상태 다시 확인하기" : "메인으로"}
+                    </Button>
+                    <Button variant={"text"} onPress={onLogout} className={"mt-1"}>
+                        로그아웃
+                    </Button>
                 </View>
             </View>
         </ScrollView>
