@@ -40,11 +40,17 @@ function AuthLoginPage() {
         try {
             const result = await userApi.loginShop(data);
 
-            if (!result.shop && result.token) {
+            if (result.shop && result.token) {
                 login(result.shop, result.token);
             }
 
-            router.push("/");
+            console.log(shopAuthStore.getState());
+
+            if (result.shop.status === "APPROVED") {
+                router.push("/");
+            } else {
+                router.push("/shop/status");
+            }
         } catch (error) {
             console.log(error);
             let errorMessage = "로그인 중 오류가 발생했습니다.";
@@ -63,9 +69,7 @@ function AuthLoginPage() {
         <KeyboardAvoidingView>
             <ScrollView>
                 <View>
-                    <Title
-                        title={"상점 로그인"}
-                        isCenter>
+                    <Title title={"상점 로그인"} isCenter>
                         <BackButton />
                     </Title>
                     <View className={"mx-5"}>

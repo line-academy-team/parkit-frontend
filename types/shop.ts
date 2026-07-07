@@ -14,7 +14,7 @@ export interface Shops {
     id: number;
     loginId: string;
     name: string;
-    shopStatus: ShopStatusType;
+    status: ShopStatusType;
     reviewedBy: number | null;
     reviewedAt: string | null;
     createdAt: string;

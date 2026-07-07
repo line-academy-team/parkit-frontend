@@ -16,7 +16,11 @@ const loginShop = async (data: LoginInputType): Promise<{ shop: Shops, token: st
 };
 
 const getShop= async () => {
-    const response = await axiosInstance.get("/shop/me");
+    const response = await axiosInstance.get("/shop/me", {
+        headers: {
+            "Cache-Control": "no-cache",
+        },
+    });
     return response.data.data;
 }
 
