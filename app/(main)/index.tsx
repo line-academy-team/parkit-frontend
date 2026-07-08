@@ -3,9 +3,11 @@ import { twMerge } from "tailwind-merge";
 import Button from "@/components/common/button/Button";
 import { IoCarOutline } from "react-icons/io5";
 import { LiaDollarSignSolid } from "react-icons/lia";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 
 function HomeScreen() {
+    const router = useRouter();
+
     return (
         <View className="flex-1 h-full bg-white items-center">
             <View className={twMerge(["justify-center"])}>
@@ -58,13 +60,14 @@ function HomeScreen() {
                     color={"navy"}
                     variant={"contained"}
                     className={twMerge(["flex-1", "h-[52px]", "bg-brand-navy", "rounded-2xl"])}
-                    onPress={() => {}}>
+                    onPress={() => router.push("/auth/register")}>
                     <View>
                         <Text className={"text-2xl text-white font-semibold"}>상점 로그인</Text>
                     </View>
                 </Button>
             </View>
-            <Link href="/" asChild>
+
+            <Link href="/auth/register" asChild>
                 <View className={twMerge(["flex-row mt-[18px] gap-2"])}>
                     <Text
                         className={twMerge([
