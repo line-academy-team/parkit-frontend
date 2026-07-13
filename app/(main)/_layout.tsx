@@ -6,7 +6,7 @@ import MainFooter from "@/components/layouts/main/MainFooter";
 function MainLayout() {
     return (
         <View className={"flex-1"}>
-            <MainHeader />
+            {/*<MainHeader />*/}
             <View className={"flex-1"}>
                 <Slot />
             </View>
