@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import Button from "@/components/common/button/Button";
 import { IoCarOutline } from "react-icons/io5";
 import { LiaDollarSignSolid } from "react-icons/lia";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import React from "react";
 
 function HomeScreen() {
@@ -87,7 +87,9 @@ function HomeScreen() {
                     color={"navy"}
                     variant={"contained"}
                     className={twMerge(["flex-1", "h-[52px]", "bg-brand-navy", "rounded-2xl"])}
-                    onPress={() => {}}>
+                    onPress={() => {
+                        router.push("/auth/login");
+                    }}>
                     <View>
                         <Text className={"text-xl text-white font-pretendard-semibold"}>
                             상점 로그인
@@ -95,7 +97,7 @@ function HomeScreen() {
                     </View>
                 </Button>
             </View>
-            <Link href="/" asChild>
+            <Link href="/auth/register" asChild>
                 <View className={twMerge(["flex-row mt-[18px] gap-2"])}>
                     <Text
                         className={twMerge([

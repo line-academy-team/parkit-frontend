@@ -1,7 +1,8 @@
-import { RegisterShopInputType } from "@/schemas/user/registerShopSchema";
-import { Shops } from "@/types/shop";
-import axiosInstance from "@/api/axiosInstance";
-import { LoginInputType } from "@/schemas/user/loginShopShema";
+import { RegisterShopInputType } from "../../schemas/user/registerShopSchema";
+import { Shops } from "../../types/shop";
+import axiosInstance from "../../api/axiosInstance";
+import { LoginInputType } from "../../schemas/user/loginShopShema";
+import shopAxiosInstance from "@/api/shopAxiosInstance";
 
 const registerShop = async (
     data: Omit<RegisterShopInputType, "confirmPassword">,
@@ -15,17 +16,19 @@ const loginShop = async (data: LoginInputType): Promise<{ shop: Shops, token: st
     return response.data.data;
 };
 
-const getShop= async () => {
-    const response = await axiosInstance.get("/shop/me", {
+
+const getMe = async (): Promise<Shops> => {
+    const response = await shopAxiosInstance.get("/shop/me", {
         headers: {
             "Cache-Control": "no-cache",
         },
     });
+
     return response.data.data;
-}
+};
 
 export default {
     registerShop,
     loginShop,
-    getShop,
+    getMe,
 };
