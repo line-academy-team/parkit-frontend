@@ -2,23 +2,29 @@ import { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import { ScrollView, Text, View, ActivityIndicator, Alert, Pressable } from "react-native";
 import { twMerge } from "tailwind-merge";
-import { Shops, ShopStatus, ShopStatusType } from "@/types/shop";
+import { Shops, ShopStatus } from "@/types/shop";
 import axiosInstance from "@/api/axiosInstance";
 import BackButton from "@/components/common/button/BackButton";
 import Button from "@/components/common/button/Button";
 
+type ChangeableShopStatus = "APPROVED" | "REJECTED" | "SUSPENDED" | "PENDING";
+
 interface ShopDetailResponse {
     message: string;
-    data: Shops;
+    data: Shops & { shopStatus?: string; status?: string };
 }
 
 function AdminShopDetailPage() {
     const { id } = useLocalSearchParams<{ id: string }>();
 
-    const [shop, setShop] = useState<Shops | null>(null);
+    const [shop, setShop] = useState<any | null>(null);
     const [loading, setLoading] = useState(true);
-    const [selectedStatus, setSelectedStatus] = useState<ShopStatusType>("PENDING");
+    const [selectedStatus, setSelectedStatus] = useState<ChangeableShopStatus>("PENDING");
     const [isUpdating, setIsUpdating] = useState(false);
+
+    const getShopStatus = (targetShop: any): ChangeableShopStatus => {
+        return (targetShop?.shopStatus || targetShop?.status || "PENDING") as ChangeableShopStatus;
+    };
 
     useEffect(() => {
         if (!id) return;
@@ -27,7 +33,7 @@ function AdminShopDetailPage() {
             .then(res => {
                 const data = res.data.data;
                 setShop(data);
-                setSelectedStatus(data.shopStatus);
+                setSelectedStatus(getShopStatus(data));
             })
             .catch(err => {
                 console.error(err);
@@ -38,7 +44,9 @@ function AdminShopDetailPage() {
 
     const handleUpdateStatus = async () => {
         if (!shop || !id) return;
-        if (selectedStatus === shop.shopStatus) return;
+
+        const currentStatus = getShopStatus(shop);
+        if (selectedStatus === currentStatus) return;
 
         setIsUpdating(true);
         try {
@@ -46,7 +54,13 @@ function AdminShopDetailPage() {
                 status: selectedStatus,
             });
             Alert.alert("알림", res.data.message || "상태가 성공적으로 변경되었습니다.");
-            setShop({ ...shop, shopStatus: selectedStatus, reviewedAt: new Date().toISOString() });
+
+            setShop({
+                ...shop,
+                shopStatus: selectedStatus,
+                status: selectedStatus,
+                reviewedAt: new Date().toISOString(),
+            });
         } catch (error) {
             console.error(error);
             Alert.alert("오류", "상태 변경 중 오류가 발생했습니다.");
@@ -65,7 +79,7 @@ function AdminShopDetailPage() {
 
     if (!shop) return null;
 
-    const isChanged = selectedStatus !== shop.shopStatus;
+    const isChanged = selectedStatus !== getShopStatus(shop);
 
     return (
         <ScrollView className="bg-brand-bg">
@@ -130,7 +144,7 @@ function AdminShopDetailPage() {
                         return (
                             <Pressable
                                 key={option}
-                                onPress={() => setSelectedStatus(option as ShopStatusType)}
+                                onPress={() => setSelectedStatus(option as ChangeableShopStatus)}
                                 style={{ width: "48%" }}
                                 className={twMerge(
                                     "py-3.5 items-center justify-center rounded-xl bg-brand-surface border border-transparent",
@@ -138,8 +152,8 @@ function AdminShopDetailPage() {
                                 )}>
                                 <Text
                                     className={twMerge(
-                                        "font-pretendard-medium text-brand-txt-light",
-                                        isSelected && "text-brand-navy font-pretendard-bold",
+                                        "font-medium text-brand-txt-light",
+                                        isSelected && "text-brand-navy font-bold",
                                     )}>
                                     {option}
                                 </Text>
@@ -152,11 +166,10 @@ function AdminShopDetailPage() {
                     color="navy"
                     variant={isChanged ? "contained" : "outlined"}
                     size="large"
-                    fullWidth
                     disabled={!isChanged || isUpdating}
                     onPress={handleUpdateStatus}
                     className={twMerge(
-                        "h-[52px] rounded-xl mb-12",
+                        "h-[52px] w-full rounded-xl mb-12",
                         !isChanged && "bg-brand-surface border-brand-border opacity-50",
                     )}>
                     {isUpdating ? "변경 중..." : "상태 변경 적용"}
