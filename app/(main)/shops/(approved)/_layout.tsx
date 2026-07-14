@@ -1,34 +1,16 @@
 import { View } from "react-native";
 import MainFooter from "@/components/layouts/main/MainFooter";
-import { Redirect, Stack, Slot } from "expo-router";
+import { Redirect, Slot } from "expo-router";
 import { shopAuthStore } from "@/stores/auth/shopAuthStore";
 
-const getStatusPath = (status: string) => {
-    switch (status) {
-        case "PENDING":
-            return "/shops/status/pending";
-
-        case "REJECTED":
-            return "/shops/status/rejected";
-
-        case "SUSPENDED":
-            return "/shops/status/suspended";
-
-        default:
-            return "/auth/login";
-    }
-};
-
 function ShopLayout() {
-    const shop = shopAuthStore(state => state.shop);
-    console.log(shop);
+    const { shop } = shopAuthStore();
     if (!shop) {
         return null;
     }
 
     if (shop.status !== "APPROVED") {
-        // @ts-ignore
-        return <Redirect href={getStatusPath(shop.status)} />;
+        return <Redirect href="/shops/status" />;
     }
 
     return (

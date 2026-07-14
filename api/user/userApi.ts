@@ -1,8 +1,9 @@
-import { RegisterShopInputType } from "../../schemas/user/registerShopSchema";
-import { Shops } from "../../types/shop";
+import { RegisterShopInputType } from "@/schemas/user/registerShopSchema";
+import { Shops } from "@/types/shop";
 import axiosInstance from "../../api/axiosInstance";
-import { LoginInputType } from "../../schemas/user/loginShopSchema";
+import { LoginInputType } from "@/schemas/user/loginShopSchema";
 import shopAxiosInstance from "@/api/shopAxiosInstance";
+import { DashboardResponse } from "@/types/shopDashboard";
 import { GetParkingSlotsResponse } from "@/types/parkingSlots";
 import {
     UpsertParkingDiscountRequest,
@@ -31,10 +32,11 @@ const registerShop = async (
     return response.data;
 };
 
-const loginShop = async (data: LoginInputType): Promise<{ shop: Shops; token: string }> => {
+const loginShop = async (data: LoginInputType): Promise<{ shop: Shops, token: string }> => {
     const response = await axiosInstance.post("/shop/login", data);
     return response.data.data;
 };
+
 
 const getMe = async (): Promise<Shops> => {
     const response = await shopAxiosInstance.get("/shop/me", {
@@ -65,6 +67,15 @@ const getParkingRecordById = async (parkingRecordId: number): Promise<ParkingRec
     return response.data.data;
 };
 
+const getDashboard = async (): Promise<DashboardResponse> => {
+    const response = await axiosInstance.get("/shop/dashboard", {
+        headers: {
+            "Cache-Control": "no-cache",
+        },
+    });
+    return response.data.data;
+};
+
 export default {
     registerShop,
     loginShop,
@@ -72,4 +83,5 @@ export default {
     getParkingSlots,
     getParkingRecordById,
     upsertParkingDiscount,
+    getDashboard,
 };

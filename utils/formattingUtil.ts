@@ -7,6 +7,14 @@ const formatEntryTime = (isoString: string) => {
     return `${month}월 ${day}일 ${hours}시 ${minutes}분`;
 };
 
+const formatDate = (isoString: string) => {
+    const date = new Date(isoString);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}.${month}.${day}`;
+};
+
 const formatDuration = (minutes: number) => {
     if (minutes === 0) return "0분";
     if (minutes < 60) return `${minutes}분`;
@@ -23,4 +31,5 @@ export default {
     formatEntryTime,
     formatDuration,
     formatCurrency,
+    formatDate,
 };

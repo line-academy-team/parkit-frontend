@@ -42,7 +42,7 @@ function AuthLoginPage() {
             const result = await userApi.loginShop(data);
 
             login(result.shop, result.token);
-            router.replace("/shops/");
+            router.replace("/shops");
         } catch (error) {
             console.log(error);
             let errorMessage = "로그인 중 오류가 발생했습니다.";
