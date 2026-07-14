@@ -7,6 +7,7 @@ import { Link, router } from "expo-router";
 import React from "react";
 
 function HomeScreen() {
+    // @ts-ignore
     return (
         <View className="flex-1 h-full bg-white items-center">
             <View className="w-full h-14 bg-brand-surface border-brand-surface">
@@ -60,7 +61,7 @@ function HomeScreen() {
                     color={"primary"}
                     variant={"contained"}
                     className={twMerge(["flex-1", "h-[132px]", "bg-brand-primary", "rounded-2xl"])}
-                    onPress={() => {}}>
+                    onPress={() => router.push("/vehicle")}>
                     <View className={twMerge(["flex-col", "justify-center", "items-center"])}>
                         <IoCarOutline color={"#FFF4A3"} size={32} />
                         <Text className={"text-2xl text-white font-pretendard-semibold"}>
@@ -72,7 +73,7 @@ function HomeScreen() {
                     color={"primary"}
                     variant={"contained"}
                     className={twMerge(["flex-1", "h-[132px]", "bg-brand-primary", "rounded-2xl"])}
-                    onPress={() => {}}>
+                    onPress={() => router.push("/prepayment")}>
                     <View className={twMerge(["flex-col", "justify-center", "items-center"])}>
                         <LiaDollarSignSolid color={"#FFF4A3"} size={32} />
                         <Text className={"text-2xl text-white font-pretendard-semibold"}>
