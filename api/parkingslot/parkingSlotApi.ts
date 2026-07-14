@@ -1,8 +1,8 @@
-import axiosInstance from "@/api/axiosInstance";
 import { GetParkingSlotsResponse } from "@/types/parkingSlots";
+import shopAxiosInstance from "@/api/shopAxiosInstance";
 
 const getParkingSlots = async (): Promise<GetParkingSlotsResponse> => {
-    const response = await axiosInstance.get("/parkingSlot");
+    const response = await shopAxiosInstance.get("/parkingSlot");
     return response.data;
 };
 
