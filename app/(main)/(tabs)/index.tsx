@@ -4,10 +4,8 @@ import Button from "@/components/common/button/Button";
 import { IoCarOutline } from "react-icons/io5";
 import { LiaDollarSignSolid } from "react-icons/lia";
 import { Link, router } from "expo-router";
-import React from "react";
 
 function HomeScreen() {
-    // @ts-ignore
     return (
         <View className="flex-1 h-full bg-white items-center">
             <View className="w-full h-14 bg-brand-surface border-brand-surface">

@@ -1,6 +1,6 @@
 import { View } from "react-native";
 import MainFooter from "@/components/layouts/main/MainFooter";
-import { Redirect, Stack, Slot } from "expo-router";
+import { Redirect, Slot } from "expo-router";
 import { shopAuthStore } from "@/stores/auth/shopAuthStore";
 
 const getStatusPath = (status: string) => {
@@ -20,14 +20,12 @@ const getStatusPath = (status: string) => {
 };
 
 function ShopLayout() {
-    const shop = shopAuthStore(state => state.shop);
-    console.log(shop);
+    const { shop } = shopAuthStore();
     if (!shop) {
         return null;
     }
 
-    if (shop.shopStatus !== "APPROVED") {
-        // @ts-ignore
+    if (shop.status !== "APPROVED") {
         return <Redirect href={getStatusPath(shop.status)} />;
     }
 

@@ -1,17 +1,13 @@
-import { Redirect, Stack } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native";
 import { shopAuthStore } from "@/stores/auth/shopAuthStore";
 import userApi from "@/api/user/userApi";
 
 function ShopsLayout() {
-    const isHydrated = shopAuthStore(state => state.isHydrated);
-    const token = shopAuthStore(state => state.token);
-    const shop = shopAuthStore(state => state.shop);
-    const setShop = shopAuthStore(state => state.setShop);
-    const logout = shopAuthStore(state => state.logout);
-
+    const { isHydrated, token, setShop, logout } = shopAuthStore();
     const [isChecking, setIsChecking] = useState(true);
+    const router = useRouter();
 
     useEffect(() => {
         if (!isHydrated) {
@@ -22,22 +18,22 @@ function ShopsLayout() {
             try {
                 if (!token) {
                     logout();
-                    console.log(1);
-                    return;
+                    router.replace("/auth/login");
                 }
 
                 const currentShop = await userApi.getMe();
-                console.log(2);
                 setShop(currentShop);
             } catch (error) {
+                console.log(error);
                 logout();
+                router.replace("/auth/login");
             } finally {
                 setIsChecking(false);
             }
         };
 
         checkShop().then(() => {});
-    }, [isHydrated, token, setShop, logout]);
+    }, [isHydrated, token, setShop, logout, router]);
 
     if (!isHydrated || isChecking) {
         return (
@@ -45,10 +41,6 @@ function ShopsLayout() {
                 <ActivityIndicator />
             </View>
         );
-    }
-
-    if (!token || !shop) {
-        return <Redirect href="/auth/login" />;
     }
 
     return (
