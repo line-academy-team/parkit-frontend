@@ -2,6 +2,7 @@ import { LoginInputType } from "@/schemas/user/loginShopShema";
 import { Admins } from "@/types/admin";
 import axiosInstance from "@/api/axiosInstance";
 import { Shops } from "@/types/shop";
+import adminAxiosInstance from "@/api/adminAxiosInstance";
 
 const loginAdmin = async (data: LoginInputType): Promise<{ admin: Admins; token: string }> => {
     const response = await axiosInstance.post("/admin/login", data);
@@ -9,12 +10,12 @@ const loginAdmin = async (data: LoginInputType): Promise<{ admin: Admins; token:
 };
 
 const getShopList = async (): Promise<{ total: string; list: Shops[] }> => {
-    const response = await axiosInstance.get("/admin/shops");
+    const response = await adminAxiosInstance.get("/admin/shops");
     return response.data.data;
 };
 
 const getShopById = async (shopId: string): Promise<Shops[]> => {
-    const response = await axiosInstance.get(`/admin/shop/${shopId}`);
+    const response = await adminAxiosInstance.get(`/admin/shop/${shopId}`);
     return response.data.data;
 };
 
