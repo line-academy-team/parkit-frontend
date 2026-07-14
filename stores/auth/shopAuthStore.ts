@@ -12,6 +12,7 @@ interface ShopAuthState {
 
     login: (shop: Shops, token: string) => void;
     logout: VoidFunction;
+    setShop: (shop: Shops) => void;
     setHydrated: (value: boolean) => void;
 }
 
@@ -42,6 +43,11 @@ export const shopAuthStore = create<ShopAuthState>()(
                     shop: null,
                 }),
 
+            setShop: shop =>
+                set({
+                    isLoggedIn: true,
+                    shop,
+                }),
             setHydrated: value =>
                 set({
                     isHydrated: value,

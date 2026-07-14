@@ -9,7 +9,6 @@ import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
 import { StatusBar } from "expo-status-bar";
 SplashScreen.preventAutoHideAsync().then(() => {});
 export default function RootLayout() {
-
     const { theme } = useThemeStore();
 
     const [fontsLoaded, fontError] = useFonts({
@@ -35,7 +34,6 @@ export default function RootLayout() {
         return null;
     }
 
-
     return (
         <SafeAreaProvider>
             <StatusBar
@@ -44,7 +42,7 @@ export default function RootLayout() {
                 }
             />
 
-            <SafeAreaView className={"flex-1 bg-background-default"}>
+            <SafeAreaView className={"flex-1"}>
                 <Slot />
             </SafeAreaView>
         </SafeAreaProvider>

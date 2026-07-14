@@ -1,9 +1,6 @@
 import { Link, useRouter } from "expo-router";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-    RegisterShopInputType,
-    registerShopSchema,
-} from "@/schemas/user/registerShopSchema";
+import { RegisterShopInputType, registerShopSchema } from "@/schemas/user/registerShopSchema";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import userApi from "../../../../api/user/userApi";
 import {
@@ -78,9 +75,6 @@ function AuthRegisterPage() {
         <KeyboardAvoidingView>
             <ScrollView>
                 <View>
-                    <View className={"h-6 bg-gray-300 items-center justify-center"}>
-                        <Text className={"font-pretendard"}>안드로이드 기본 상단 바 영역</Text>
-                    </View>
                     <View
                         className={twMerge(
                             "h-14 relative",

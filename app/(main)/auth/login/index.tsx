@@ -39,11 +39,8 @@ function AuthLoginPage() {
         try {
             const result = await userApi.loginShop(data);
 
-            if (!result.shop && result.token) {
-                login(result.shop, result.token);
-            }
-
-            router.push("/");
+            login(result.shop, result.token);
+            router.replace("/shops");
         } catch (error) {
             console.log(error);
             let errorMessage = "로그인 중 오류가 발생했습니다.";
@@ -62,9 +59,6 @@ function AuthLoginPage() {
         <KeyboardAvoidingView>
             <ScrollView>
                 <View>
-                    <View className={"h-6 bg-gray-300 items-center justify-center"}>
-                        <Text className={"font-pretendard"}>안드로이드 기본 상단 바 영역</Text>
-                    </View>
                     <View
                         className={twMerge(
                             "h-14 relative",

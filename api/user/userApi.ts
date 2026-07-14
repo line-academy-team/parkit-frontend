@@ -2,6 +2,7 @@ import { RegisterShopInputType } from "../../schemas/user/registerShopSchema";
 import { Shops } from "../../types/shop";
 import axiosInstance from "../../api/axiosInstance";
 import { LoginInputType } from "../../schemas/user/loginShopShema";
+import shopAxiosInstance from "@/api/shopAxiosInstance";
 
 const registerShop = async (
     data: Omit<RegisterShopInputType, "confirmPassword">,
@@ -10,12 +11,19 @@ const registerShop = async (
     return response.data;
 };
 
-const loginShop = async (data: LoginInputType): Promise<{ shop: Shops, token: string }> => {
+const loginShop = async (data: LoginInputType): Promise<{ shop: Shops; token: string }> => {
     const response = await axiosInstance.post("/shop/login", data);
+    return response.data.data;
+};
+
+const getMe = async (): Promise<Shops> => {
+    const response = await shopAxiosInstance.get("/shop/me");
+
     return response.data.data;
 };
 
 export default {
     registerShop,
     loginShop,
+    getMe,
 };
