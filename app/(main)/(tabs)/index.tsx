@@ -3,10 +3,12 @@ import { twMerge } from "tailwind-merge";
 import Button from "@/components/common/button/Button";
 import { IoCarOutline } from "react-icons/io5";
 import { LiaDollarSignSolid } from "react-icons/lia";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import React from "react";
 
 function HomeScreen() {
+    const router = useRouter();
+
     return (
         <View className="flex-1 h-full bg-white items-center">
             <View className="w-full h-14 bg-brand-surface border-brand-surface">
@@ -60,7 +62,7 @@ function HomeScreen() {
                     color={"primary"}
                     variant={"contained"}
                     className={twMerge(["flex-1", "h-[132px]", "bg-brand-primary", "rounded-2xl"])}
-                    onPress={() => {}}>
+                    onPress={() => router.push("/car/search")}>
                     <View className={twMerge(["flex-col", "justify-center", "items-center"])}>
                         <IoCarOutline color={"#FFF4A3"} size={32} />
                         <Text className={"text-2xl text-white font-pretendard-semibold"}>
@@ -72,7 +74,7 @@ function HomeScreen() {
                     color={"primary"}
                     variant={"contained"}
                     className={twMerge(["flex-1", "h-[132px]", "bg-brand-primary", "rounded-2xl"])}
-                    onPress={() => {}}>
+                    onPress={() => router.push("/car/payment")}>
                     <View className={twMerge(["flex-col", "justify-center", "items-center"])}>
                         <LiaDollarSignSolid color={"#FFF4A3"} size={32} />
                         <Text className={"text-2xl text-white font-pretendard-semibold"}>
