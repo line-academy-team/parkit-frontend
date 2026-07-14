@@ -1,7 +1,7 @@
 import { Link, useRouter } from "expo-router";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginInputType, loginSchema } from "@/schemas/user/loginShopShema";
+import { LoginInputType, loginSchema } from "@/schemas/user/loginShopSchema";
 import { isAxiosError } from "axios";
 import userApi from "@/api/user/userApi";
 import { shopAuthStore } from "@/stores/auth/shopAuthStore";
@@ -42,7 +42,7 @@ function AuthLoginPage() {
             const result = await userApi.loginShop(data);
 
             login(result.shop, result.token);
-            router.replace("/shops");
+            router.replace("/shops/");
         } catch (error) {
             console.log(error);
             let errorMessage = "로그인 중 오류가 발생했습니다.";

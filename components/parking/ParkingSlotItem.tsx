@@ -1,6 +1,7 @@
-import { View, Text, Image } from "react-native";
+import { View, Text, Image, Pressable } from "react-native";
 import { twMerge } from "tailwind-merge";
 import type { GetParkingSlotsResponse } from "@/types/parkingSlots";
+import { router } from "expo-router";
 
 type ParkingSlot = GetParkingSlotsResponse["slots"][number];
 
@@ -35,16 +36,44 @@ function ParkingSlotItem({ item }: ParkingSlotItemProps) {
     const parkingRecord = item.parkingRecord;
     const isOccupied = parkingRecord !== null;
 
-    // TODO: 내 할인 상태 추가하기
+    const totalDiscountMinutes = parkingRecord?.totalDiscountMinutes ?? 0;
+    const myDiscountMinutes = parkingRecord?.myDiscountMinutes ?? 0;
+
+    const hasMyDiscount = myDiscountMinutes > 0;
+    const hasAnyDiscount = totalDiscountMinutes > 0;
+
+    const cardStyle = isOccupied
+        ? hasAnyDiscount
+            ? "border-2 border-[#FFB578] bg-brand-highlight"
+            : "border-2 border-brand-primary bg-brand-bg"
+        : "bg-brand-surface";
+
+    const handlePress = () => {
+        if (!parkingRecord) {
+            return;
+        }
+
+        router.push(`/shops/parking/${parkingRecord.id}`);
+    };
+
     return (
-        <View
-            className={twMerge(
-                "h-[140px] w-[180px] rounded-xl p-3",
-                isOccupied ? "border-2 border-brand-primary bg-brand-bg" : "bg-brand-surface",
-            )}>
-            <Text className="font-pretendard-medium text-sm text-brand-txt-main">
-                {item.floor}F ㆍ {item.spaceNumber}
-            </Text>
+        <Pressable
+            onPress={handlePress}
+            disabled={!isOccupied}
+            className={twMerge("h-[140px] w-[180px] rounded-xl p-3", cardStyle)}>
+            <View className="flex-row items-start justify-between">
+                <Text className="font-pretendard-medium text-sm text-brand-txt-main">
+                    {item.floor}F ㆍ {item.spaceNumber}
+                </Text>
+
+                {hasMyDiscount && (
+                    <View className="rounded-full bg-[#FFB578] px-2 py-1">
+                        <Text className="font-pretendard-bold text-[10px]/[14px] text-[#284776]">
+                            내 할인 {myDiscountMinutes}분
+                        </Text>
+                    </View>
+                )}
+            </View>
 
             {isOccupied ? (
                 <>
@@ -66,8 +95,12 @@ function ParkingSlotItem({ item }: ParkingSlotItemProps) {
                         {formatEntryTime(parkingRecord.entryTime)} 입차
                     </Text>
 
-                    <Text className="mt-1.5 font-pretendard-bold text-[12px] text-brand-txt-sub">
-                        할인 없음
+                    <Text
+                        className={twMerge(
+                            "mt-1.5 font-pretendard-bold text-[12px]",
+                            hasAnyDiscount ? "text-brand-primary" : "text-brand-txt-sub",
+                        )}>
+                        {hasAnyDiscount ? `할인 ${totalDiscountMinutes}분` : "할인 없음"}
                     </Text>
                 </>
             ) : (
@@ -85,7 +118,7 @@ function ParkingSlotItem({ item }: ParkingSlotItemProps) {
                     <Text className="self-center font-pretendard-bold">빈 자리</Text>
                 </>
             )}
-        </View>
+        </Pressable>
     );
 }
 

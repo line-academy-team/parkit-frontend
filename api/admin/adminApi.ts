@@ -1,4 +1,4 @@
-import { LoginInputType } from "@/schemas/user/loginShopShema";
+import { LoginInputType } from "@/schemas/user/loginShopSchema";
 import { Admins } from "@/types/admin";
 import axiosInstance from "@/api/axiosInstance";
 import { Shops } from "@/types/shop";

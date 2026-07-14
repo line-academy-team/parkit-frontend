@@ -26,7 +26,7 @@ function ShopLayout() {
         return null;
     }
 
-    if (shop.shopStatus !== "APPROVED") {
+    if (shop.status !== "APPROVED") {
         // @ts-ignore
         return <Redirect href={getStatusPath(shop.status)} />;
     }

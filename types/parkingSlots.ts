@@ -2,6 +2,9 @@ export interface ParkingRecordSummary {
     id: number;
     plateNumber: string;
     entryTime: string;
+    discountCount: number;
+    totalDiscountMinutes: number;
+    myDiscountMinutes: number;
 }
 
 export interface ParkingSlotItem {

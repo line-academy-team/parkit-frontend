@@ -27,7 +27,7 @@ function ShopsLayout() {
                 }
 
                 const currentShop = await userApi.getMe();
-                console.log(2);
+                console.log(currentShop);
                 setShop(currentShop);
             } catch (error) {
                 logout();

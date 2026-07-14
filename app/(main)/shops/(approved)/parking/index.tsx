@@ -1,9 +1,10 @@
 import { View, Text, Pressable, Image, TextInput, ScrollView } from "react-native";
 import { twMerge } from "tailwind-merge";
 import { useEffect, useState } from "react";
-import parkingSlotApi from "@/api/parkingslot/parkingSlotApi";
+import { useLocalSearchParams } from "expo-router";
 import type { GetParkingSlotsResponse } from "@/types/parkingSlots";
 import ParkingSlotItem from "@/components/parking/ParkingSlotItem";
+import userApi from "@/api/user/userApi";
 
 type Floor = 0 | 1 | 2;
 type Display = "grid" | "list";
@@ -24,14 +25,19 @@ const floorFilters: { label: string; value: Floor }[] = [
 ];
 
 function ParkingListPage() {
+    const params = useLocalSearchParams<{
+        toastMessage?: string;
+    }>();
+
     const [floor, setFloor] = useState<Floor>(0);
     const [display, setDisplay] = useState<Display>("grid");
     const [data, setData] = useState<GetParkingSlotsResponse>();
+    const [toastMessage, setToastMessage] = useState<string | null>(null);
 
     const loadParkingSlots = async () => {
         try {
-            const result = await parkingSlotApi.getParkingSlots();
-
+            const result = await userApi.getParkingSlots();
+            console.log(result);
             setData(result);
         } catch (error) {
             console.log(error);
@@ -41,6 +47,24 @@ function ParkingListPage() {
     useEffect(() => {
         void loadParkingSlots();
     }, []);
+
+    useEffect(() => {
+        if (!params.toastMessage) {
+            return;
+        }
+
+        const message = Array.isArray(params.toastMessage)
+            ? params.toastMessage[0]
+            : params.toastMessage;
+
+        setToastMessage(decodeURIComponent(message));
+
+        const timer = setTimeout(() => {
+            setToastMessage(null);
+        }, 2500);
+
+        return () => clearTimeout(timer);
+    }, [params.toastMessage]);
 
     const filteredSlots =
         data?.slots.filter(item => {
@@ -52,7 +76,7 @@ function ParkingListPage() {
         }) ?? [];
 
     return (
-        <>
+        <View className="flex-1 bg-white">
             <View className="h-14 flex-row items-center justify-between bg-brand-surface px-5">
                 <Text className="font-pretendard-bold text-[24px]/[34px] text-brand-txt-main">
                     주차 현황
@@ -173,7 +197,17 @@ function ParkingListPage() {
                     </View>
                 </ScrollView>
             </View>
-        </>
+
+            {toastMessage && (
+                <View className="absolute bottom-5 left-5 right-5 items-center">
+                    <View className="rounded-lg bg-[#4A4A4A] px-4 py-3">
+                        <Text className="text-center font-pretendard-medium text-[14px]/[20px] text-white">
+                            {toastMessage}
+                        </Text>
+                    </View>
+                </View>
+            )}
+        </View>
     );
 }
 
