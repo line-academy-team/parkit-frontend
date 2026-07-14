@@ -21,5 +21,5 @@ export interface Shops {
     updatedAt: string;
     deletedAt: string | null;
     reviewer: Pick<Admins, "id">;
-    discounts: Pick<ParkingDiscounts, "id" | "discountMinute"> | null;
+    discounts: Pick<ParkingDiscounts, "id" | "discountMinute">[] | null;
 }

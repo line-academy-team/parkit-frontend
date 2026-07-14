@@ -1,10 +1,23 @@
-import { ParkingRecords } from "./parkingRecords";
-
-export interface ParkingSlots {
+export interface ParkingRecordSummary {
     id: number;
-    spaceNumber: string;
+    plateNumber: string;
+    entryTime: string;
+    discountCount: number;
+    totalDiscountMinutes: number;
+    myDiscountMinutes: number;
+}
+
+export interface ParkingSlotItem {
+    id: number;
     floor: number;
-    createdAt: string;
-    updatedAt: string;
-    parkingRecords: Pick<ParkingRecords, "id" | "plateNumber">;
+    spaceNumber: string;
+    isOccupied: boolean;
+    parkingRecord: ParkingRecordSummary | null;
+}
+
+export interface GetParkingSlotsResponse {
+    totalCount: number;
+    occupiedCount: number;
+    emptyCount: number;
+    slots: ParkingSlotItem[];
 }

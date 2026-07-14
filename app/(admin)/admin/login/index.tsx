@@ -1,7 +1,7 @@
 import { Link, useRouter } from "expo-router";
 import { Controller, useForm, useWatch } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginInputType, loginSchema } from "@/schemas/user/loginShopShema";
+import { LoginInputType, loginSchema } from "@/schemas/user/loginShopSchema";
 import { isAxiosError } from "axios";
 import { adminAuthStore } from "@/stores/auth/adminAuthStore";
 import { KeyboardAvoidingView, Pressable, ScrollView, Text, View } from "react-native";

@@ -23,7 +23,7 @@ function ShopStatusPage() {
 
     const statusPress = () => {
         if (shop?.status === "PENDING") {
-            router.push("/shop/status");
+            router.push("/shops/status");
         } else {
             router.push("/");
         }

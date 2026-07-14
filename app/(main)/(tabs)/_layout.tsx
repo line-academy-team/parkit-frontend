@@ -1,14 +1,16 @@
 import { View } from "react-native";
 import { Slot } from "expo-router";
-import MainHeader from "@/components/layouts/main/MainHeader";
 import MainFooter from "@/components/layouts/main/MainFooter";
 
-function MainLayout() {
+function GuestLayout() {
     return (
         <View className={"flex-1"}>
-            <Slot />
+            <View className={"flex-1"}>
+                <Slot />
+            </View>
+            <MainFooter variant={"guest"} />
         </View>
     );
 }
 
-export default MainLayout;
+export default GuestLayout;
