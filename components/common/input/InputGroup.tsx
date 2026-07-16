@@ -2,7 +2,6 @@ import { Image, Pressable, Text, TextInput, TextInputProps, View } from "react-n
 import ErrorMessage from "@/components/common/form/ErrorMessage";
 import InfoMessage from "@/components/common/form/InfoMessage";
 import { twMerge } from "tailwind-merge";
-import { router } from "expo-router";
 import { useState } from "react";
 
 interface InputGroupProps extends TextInputProps {
@@ -21,6 +20,7 @@ function InputGroup({
     ...props
 }: InputGroupProps) {
     const [visibility, setVisibility] = useState(false);
+    const isEditable = props.editable !== false;
 
     return (
         <View className="mt-5">
@@ -29,7 +29,8 @@ function InputGroup({
                 className={twMerge(
                     "mt-3 p-3 relative font-pretendard",
                     "bg-brand-surface rounded-xl border border-brand-border",
-                    "focus:bg-brand-bg focus:outline-brand-primary focus:border-2",
+                    "focus:outline-brand-primary focus:border-2",
+                    isEditable ? "focus:bg-brand-bg" : "bg-brand-surface text-brand-txt-sub",
                     errorMessage && "border-brand-danger border-2",
                 )}
                 placeholder={"4자 이상 입력해주세요"}

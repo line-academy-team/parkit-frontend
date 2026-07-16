@@ -67,7 +67,7 @@ function DiscountHistoryScreen() {
     const groupedHistory = groupHistoryByDate(historyList);
 
     return (
-        <View className="flex-1 bg-brand-bg">
+        <View className="flex-1">
             <Title title="할인 내역" isCenter={false}>
                 <Pressable onPress={handleHeaderRefresh} className="p-2">
                     <MaterialIcons name="refresh" size={24} color="#3E3E41" />

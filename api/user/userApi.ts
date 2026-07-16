@@ -10,6 +10,8 @@ import {
     UpsertParkingDiscountResponse,
 } from "@/schemas/parkingDiscount/upsertParkingDiscountSchema";
 import { DiscountHistoryParams, GetDiscountHistoryResponse } from "@/types/discountHistory";
+import { UpdateShopInputType } from "@/schemas/user/updateShopSchema";
+import { UpdatePasswordInputType } from "@/schemas/user/updateShopPasswordSchema";
 
 export interface ParkingRecordDetail {
     id: number;
@@ -87,6 +89,15 @@ const getDiscountHistory = async (
     return response.data.data;
 };
 
+const updateShop = async (data: UpdateShopInputType) => {
+    const response = await shopAxiosInstance.patch("/shop/update", data);
+    return response.data.data;
+};
+
+const updateShopPassword = async (data: UpdatePasswordInputType) => {
+    await shopAxiosInstance.patch("/shop/password", data);
+}
+
 export default {
     registerShop,
     loginShop,
@@ -96,4 +107,6 @@ export default {
     upsertParkingDiscount,
     getDashboard,
     getDiscountHistory,
+    updateShop,
+    updateShopPassword,
 };
