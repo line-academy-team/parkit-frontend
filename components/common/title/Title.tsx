@@ -12,7 +12,6 @@ interface TitleProps extends PropsWithChildren {
 }
 
 function Title({
-    barText = "안드로이드 기본 상단 바 영역",
     title,
     isCenter = false,
     className,
@@ -20,9 +19,6 @@ function Title({
 }: TitleProps) {
     return (
         <View className="w-full">
-            <View className={"h-6 bg-gray-300 items-center justify-center"}>
-                <Text className={"font-pretendard"}>{barText}</Text>
-            </View>
             <View
                 className={twMerge(
                     "h-14 relative px-5 flex-row",
