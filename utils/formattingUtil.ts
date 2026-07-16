@@ -27,9 +27,20 @@ const formatCurrency = (amount: number) => {
     return amount.toLocaleString("ko-KR") + "원";
 };
 
+const formatPlateNumber = (plateNumber?: string): string => {
+    if (!plateNumber) {
+        return "";
+    }
+
+    const normalized = plateNumber.replace(/\s+/g, "");
+
+    return normalized.replace(/(.+)(\d{4})$/, "$1 $2");
+};
+
 export default {
     formatEntryTime,
     formatDuration,
     formatCurrency,
     formatDate,
+    formatPlateNumber,
 };

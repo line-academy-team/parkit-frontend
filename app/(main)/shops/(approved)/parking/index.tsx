@@ -3,7 +3,8 @@ import { twMerge } from "tailwind-merge";
 import { useEffect, useState } from "react";
 import { useLocalSearchParams } from "expo-router";
 import type { GetParkingSlotsResponse } from "@/types/parkingSlots";
-import ParkingSlotItem from "@/components/parking/ParkingSlotItem";
+import ParkingSlotGridItem from "@/components/parking/ParkingSlotGridItem";
+import ParkingSlotListItem from "@/components/parking/ParkingSlotListItem";
 import userApi from "@/api/user/userApi";
 
 type Floor = 0 | 1 | 2;
@@ -37,7 +38,7 @@ function ParkingListPage() {
     const loadParkingSlots = async () => {
         try {
             const result = await userApi.getParkingSlots();
-            console.log(result);
+
             setData(result);
         } catch (error) {
             console.log(error);
@@ -190,11 +191,19 @@ function ParkingListPage() {
                     contentContainerStyle={{
                         paddingBottom: 80,
                     }}>
-                    <View className="mt-4 w-full flex-row flex-wrap gap-3">
-                        {filteredSlots.map(item => (
-                            <ParkingSlotItem key={item.id} item={item} />
-                        ))}
-                    </View>
+                    {display === "grid" ? (
+                        <View className="mt-4 w-full flex-row flex-wrap gap-3">
+                            {filteredSlots.map(item => (
+                                <ParkingSlotGridItem key={item.id} item={item} />
+                            ))}
+                        </View>
+                    ) : (
+                        <View className="mt-4 w-full gap-3">
+                            {filteredSlots.map(item => (
+                                <ParkingSlotListItem key={item.id} item={item} />
+                            ))}
+                        </View>
+                    )}
                 </ScrollView>
             </View>
 
