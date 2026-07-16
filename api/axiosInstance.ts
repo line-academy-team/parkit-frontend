@@ -1,15 +1,13 @@
-import { create } from "axios";
 import { shopAuthStore } from "@/stores/auth/shopAuthStore";
+import axios from "axios";
 
 const BASE_URL = process.env.EXPO_PUBLIC_API_BASE_URL || "";
 
-const api = create({
+const api = axios.create({
     baseURL: BASE_URL,
     timeout: 3000,
     withCredentials: true,
 });
-
-export default api;
 
 api.interceptors.request.use(config => {
     const { token } = shopAuthStore.getState();
@@ -20,3 +18,5 @@ api.interceptors.request.use(config => {
 
     return config;
 });
+
+export default api;

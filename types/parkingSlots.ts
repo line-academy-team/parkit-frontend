@@ -6,5 +6,5 @@ export interface ParkingSlots {
     floor: number;
     createdAt: string;
     updatedAt: string;
-    parkingRecords: Pick<ParkingRecords, "id" | "plateNumber">;
+    parkingRecords: Pick<ParkingRecords, "id" | "discounts" | "plateNumber" | "entryTime"> | null;
 }

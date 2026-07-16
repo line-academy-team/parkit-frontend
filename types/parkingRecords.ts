@@ -11,6 +11,6 @@ export interface ParkingRecords {
     updatedAt: string;
     parkingSlotId: number;
     parkingSlots: Pick<ParkingSlots, "id">;
-    discounts: Pick<ParkingDiscounts, "id" | "discountMinute"> | null;
+    discounts: Pick<ParkingDiscounts, "id" | "discountMinute" | "shopId"> | null;
     payment: Pick<ParkingPayments, "id">
 }

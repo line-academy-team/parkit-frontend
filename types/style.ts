@@ -1,7 +1,7 @@
-export type StyleColorType = "primary" | "navy" | "warning" | "danger" | "accent";
+export type StyleColorType = "primary" | "navy" | "warning" | "danger" | "accent" | "surface";
 export type StyleVariantType = "contained" | "outlined" | "text" | "icon";
 export type StyleSizeType = "small" | "medium" | "large";
-export type StyleShapeType = "fullwidth" | "square";
+export type StyleShapeType = "fullwidth" | "square" | "badge";
 
 export const BUTTON_SIZE_STYLE = {
     small: "px-2 py-1 text-sm font-pretendard leading-[22px] tracking-normal",
