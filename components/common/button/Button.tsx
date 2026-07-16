@@ -51,13 +51,15 @@ function Button({
                 return `w-full h-[52px]`;
             case "square":
                 return "w-45 h-33";
+            case "badge":
+                return "w-14 h-9";
         }
     };
 
     return (
         <Pressable
             className={twMerge(
-                "flex justify-center items-center rounded-xl font-bold",
+                "flex justify-center items-center rounded-xl",
                 BUTTON_SIZE_STYLE[size],
                 getVariantClasses(),
                 getTextColorClasses(),

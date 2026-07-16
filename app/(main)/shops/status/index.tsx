@@ -2,7 +2,7 @@ import { shopAuthStore } from "@/stores/auth/shopAuthStore";
 import { useRouter } from "expo-router";
 import { Image, ScrollView, Text, View } from "react-native";
 import Title from "@/components/common/title/Title";
-import parkingIcon from "@/assets/images/parking.png";
+import logoIcon from "@/assets/images/logo.png";
 import { twMerge } from "tailwind-merge";
 import Button from "@/components/common/button/Button";
 
@@ -37,8 +37,9 @@ function ShopStatusPage() {
                 <View className="items-center justify-center m-auto">
                     <View className="flex-row items-center mt-24 gap-2">
                         <Image
-                            source={parkingIcon}
+                            source={logoIcon}
                             style={{ width: 48, height: 48 }}
+                            className="rounded-sm"
                             resizeMode="contain"
                         />
                         <Text className="text-4xl font-pretendard-bold text-brand-navy">
