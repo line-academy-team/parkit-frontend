@@ -9,6 +9,7 @@ import {
     UpsertParkingDiscountRequest,
     UpsertParkingDiscountResponse,
 } from "@/schemas/parkingDiscount/upsertParkingDiscountSchema";
+import { DiscountHistoryParams, GetDiscountHistoryResponse } from "@/types/discountHistory";
 
 export interface ParkingRecordDetail {
     id: number;
@@ -76,6 +77,16 @@ const getDashboard = async (): Promise<DashboardResponse> => {
     return response.data.data;
 };
 
+const getDiscountHistory = async (
+    params?: DiscountHistoryParams,
+): Promise<GetDiscountHistoryResponse> => {
+     const response = await shopAxiosInstance.get("/parkingDiscount/history", {
+        params,
+    });
+
+    return response.data.data;
+};
+
 export default {
     registerShop,
     loginShop,
@@ -84,4 +95,5 @@ export default {
     getParkingRecordById,
     upsertParkingDiscount,
     getDashboard,
+    getDiscountHistory,
 };
