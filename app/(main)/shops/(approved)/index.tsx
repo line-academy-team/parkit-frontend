@@ -1,5 +1,5 @@
 import { View, Text, ScrollView, Image, Pressable, Alert, ActivityIndicator } from "react-native";
-import { Link} from "expo-router";
+import { Link, useRouter } from "expo-router";
 import Button from "@/components/common/button/Button";
 import { shopAuthStore } from "@/stores/auth/shopAuthStore";
 import { IoNotifications, IoCarOutline, IoChevronForward } from "react-icons/io5";
@@ -9,6 +9,7 @@ import userApi from "@/api/user/userApi";
 import formattingUtil from "@/utils/formattingUtil";
 
 export default function ShopMainScreen() {
+    const router = useRouter();
     const { shop } = shopAuthStore();
 
     const [dashboardData, setDashboardData] = useState<DashboardResponse | null>(null);
@@ -51,19 +52,20 @@ export default function ShopMainScreen() {
                         resizeMode="contain"
                         className="rounded-sm"
                     />
-                    <Text className="text-2xl font-bold text-brand-navy">Park:</Text>
-                    <Text className="text-2xl font-bold text-brand-primary">It</Text>
+                    <View>
+                        <Text className="text-2xl font-bold text-brand-navy">Park:</Text>
+                        <Text className="text-2xl font-bold text-brand-primary">It</Text>
+                    </View>
                 </View>
                 <Pressable
                     onPress={() => {
                         /* TODO: 알림 페이지 이동 */
                     }}>
-                    <IoNotifications size={24} color="#FFB578" /> {/* brand-warning 색상 */}
+                    <IoNotifications size={24} color="#FFB578" />
                 </Pressable>
             </View>
 
             <ScrollView className="flex-1" contentContainerStyle={{ paddingBottom: 40 }}>
-                {/* 2. 인사말 및 승인 배지 */}
                 <View className="items-center mt-8 mb-10 px-5">
                     <Text className="text-[22px] font-pretendard-bold text-brand-navy text-center">
                         안녕하세요, {shop?.name || "[상점 이름]"}
@@ -81,7 +83,6 @@ export default function ShopMainScreen() {
                         오늘의 현황
                     </Text>
                     <View className="flex-row gap-3">
-                        {/* 현재 주차 현황 */}
                         <View className="flex-1 bg-brand-surface rounded-2xl py-5 items-center justify-center">
                             <Text className="text-[22px] font-pretendard-bold text-brand-navy">
                                 {dashboard.currentParked}대
@@ -94,7 +95,6 @@ export default function ShopMainScreen() {
                             </Text>
                         </View>
 
-                        {/* 오늘의 할인 현황 */}
                         <View className="flex-1 bg-brand-accent rounded-2xl py-5 items-center justify-center">
                             <Text className="text-[22px] font-pretendard-bold text-brand-navy">
                                 {dashboard.todayDiscountCount}건
@@ -109,14 +109,13 @@ export default function ShopMainScreen() {
                     </View>
                 </View>
 
-                {/* 4. 차량 검색 및 할인 등록 액션 버튼 */}
                 <View className="px-5 mb-10">
                     <Button
                         color="navy"
                         variant="contained"
                         shape="fullwidth"
                         onPress={() => {
-                            // TODO: 상점용 차량 검색 페이지로 라우팅
+                            router.push("/shops/parking");
                         }}>
                         <View className="flex-row items-center justify-center w-full relative">
                             <IoCarOutline size={20} color="#ffffff" className="mr-2" />
@@ -128,13 +127,12 @@ export default function ShopMainScreen() {
                     </Button>
                 </View>
 
-                {/* 5. 최근 할인 내역 */}
                 <View className="px-5 mb-10">
                     <View className="flex-row justify-between items-end mb-3">
                         <Text className="text-[16px] font-pretendard-bold text-brand-txt-main">
                             최근 할인 내역
                         </Text>
-                        <Link href="/shops/(approved)/discount-history" asChild>
+                        <Link href="./shops/(approved)/discounts" asChild>
                             <Pressable>
                                 <Text className="text-[13px] font-pretendard-medium text-brand-primary">
                                     전체보기

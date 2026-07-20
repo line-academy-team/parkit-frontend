@@ -2,40 +2,19 @@ import { View, Text, Image, Pressable } from "react-native";
 import { twMerge } from "tailwind-merge";
 import type { GetParkingSlotsResponse } from "@/types/parkingSlots";
 import { router } from "expo-router";
+import formattingUtil from "@/utils/formattingUtil";
 
 type ParkingSlot = GetParkingSlotsResponse["slots"][number];
 
-interface ParkingSlotItemProps {
+interface ParkingSlotGridItemProps {
     item: ParkingSlot;
 }
 
-const formatPlateNumber = (plateNumber?: string): string => {
-    if (!plateNumber) {
-        return "";
-    }
-
-    const normalized = plateNumber.replace(/\s+/g, "");
-
-    return normalized.replace(/(.+)(\d{4})$/, "$1 $2");
-};
-
-const formatEntryTime = (entryTime?: string): string => {
-    if (!entryTime) {
-        return "";
-    }
-
-    return new Date(entryTime).toLocaleTimeString("ko-KR", {
-        hour: "2-digit",
-        minute: "2-digit",
-        hour12: false,
-        timeZone: "Asia/Seoul",
-    });
-};
-
-function ParkingSlotItem({ item }: ParkingSlotItemProps) {
+function ParkingSlotGridItem({ item }: ParkingSlotGridItemProps) {
     const parkingRecord = item.parkingRecord;
     const isOccupied = parkingRecord !== null;
 
+    const discountCount = parkingRecord?.discountCount ?? 0;
     const totalDiscountMinutes = parkingRecord?.totalDiscountMinutes ?? 0;
     const myDiscountMinutes = parkingRecord?.myDiscountMinutes ?? 0;
 
@@ -88,11 +67,11 @@ function ParkingSlotItem({ item }: ParkingSlotItemProps) {
                     />
 
                     <Text className="text-center font-pretendard-bold text-brand-txt-main">
-                        {formatPlateNumber(parkingRecord.plateNumber)}
+                        {formattingUtil.formatPlateNumber(parkingRecord.plateNumber)}
                     </Text>
 
                     <Text className="mt-3 font-pretendard text-brand-txt-light">
-                        {formatEntryTime(parkingRecord.entryTime)} 입차
+                        {formattingUtil.formatEntryTime(parkingRecord.entryTime)} 입차
                     </Text>
 
                     <Text
@@ -100,7 +79,9 @@ function ParkingSlotItem({ item }: ParkingSlotItemProps) {
                             "mt-1.5 font-pretendard-bold text-[12px]",
                             hasAnyDiscount ? "text-brand-primary" : "text-brand-txt-sub",
                         )}>
-                        {hasAnyDiscount ? `할인 ${totalDiscountMinutes}분` : "할인 없음"}
+                        {hasAnyDiscount
+                            ? `할인 ${discountCount}건 (총 ${totalDiscountMinutes}분)`
+                            : "할인 없음"}
                     </Text>
                 </>
             ) : (
@@ -122,4 +103,4 @@ function ParkingSlotItem({ item }: ParkingSlotItemProps) {
     );
 }
 
-export default ParkingSlotItem;
+export default ParkingSlotGridItem;
