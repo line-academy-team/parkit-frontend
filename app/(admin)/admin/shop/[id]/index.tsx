@@ -28,6 +28,7 @@ function AdminShopDetailPage() {
 
     useEffect(() => {
         if (!id) return;
+        setLoading(true);
         axiosInstance
             .get<ShopDetailResponse>(`/admin/shop/${id}`)
             .then(res => {
@@ -77,12 +78,22 @@ function AdminShopDetailPage() {
         );
     }
 
-    if (!shop) return null;
+    if (!shop) {
+        return (
+            <View className="flex-1 justify-center items-center bg-brand-bg p-5">
+                <Text className="text-brand-txt-main font-pretendard-medium mb-4">
+                    존재하지 않거나 정보를 불러올 수 없는 상점입니다.
+                </Text>
+                <BackButton />
+            </View>
+        );
+    }
 
     const isChanged = selectedStatus !== getShopStatus(shop);
 
     return (
-        <ScrollView className="bg-brand-bg">
+        <ScrollView className="flex-1 bg-brand-bg" contentContainerStyle={{ paddingBottom: 40 }}>
+            {/* 상단 타이틀 바 */}
             <View className="h-14 relative bg-brand-surface items-center justify-center">
                 <Text className="text-2xl font-pretendard-bold text-brand-navy">
                     상점 정보 조회
@@ -101,6 +112,7 @@ function AdminShopDetailPage() {
                     </Text>
                 </View>
 
+                {/* 상점 정보 카드 */}
                 <View className="bg-brand-surface p-5 rounded-2xl gap-4 mb-8">
                     <View className="flex-row justify-between items-center border-b border-white/40 pb-3">
                         <Text className="text-brand-txt-sub font-pretendard">상점명</Text>
@@ -135,6 +147,7 @@ function AdminShopDetailPage() {
                     )}
                 </View>
 
+                {/* 심사 상태 설정 Buttons */}
                 <Text className="text-brand-navy font-pretendard-bold text-lg mb-3">
                     심사 상태 설정
                 </Text>
@@ -162,6 +175,7 @@ function AdminShopDetailPage() {
                     })}
                 </View>
 
+                {/* 적용 버튼 */}
                 <Button
                     color="navy"
                     variant={isChanged ? "contained" : "outlined"}
