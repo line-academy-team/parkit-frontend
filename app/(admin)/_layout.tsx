@@ -3,7 +3,7 @@ import { Slot } from "expo-router";
 
 function AdminLayout() {
     return (
-        <View>
+        <View className={"flex-1"}>
             <View>
                 <Slot />
             </View>

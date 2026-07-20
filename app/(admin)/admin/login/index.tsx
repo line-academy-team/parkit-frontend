@@ -10,6 +10,7 @@ import BackButton from "@/components/common/button/BackButton";
 import InputGroup from "@/components/common/input/InputGroup";
 import ErrorMessage from "@/components/common/form/ErrorMessage";
 import adminApi from "@/api/admin/adminApi";
+import Button from "@/components/common/button/Button";
 
 function AuthLoginPage() {
     const router = useRouter();
@@ -39,11 +40,11 @@ function AuthLoginPage() {
         try {
             const result = await adminApi.loginAdmin(data);
 
-            if (!result.admin && result.token) {
+            if (result.admin && result.token) {
                 login(result.admin, result.token);
             }
 
-            router.push("/");
+            router.replace("/admin/shop");
         } catch (error) {
             console.log(error);
             let errorMessage = "로그인 중 오류가 발생했습니다.";
@@ -120,21 +121,18 @@ function AuthLoginPage() {
                             <ErrorMessage>{errors.root?.message}</ErrorMessage>
                         )}
 
-                        <Pressable
+                        <Button
+                            variant={isFilled ? "contained" : "text"}
                             disabled={!isFilled || isSubmitting}
+                            size={"large"}
                             onPress={handleSubmit(onSubmit)}
                             className={twMerge(
-                                "mt-5 justify-center items-center h-[52px] bg-brand-surface rounded-xl",
+                                "mt-5 bg-brand-surface",
                                 isFilled && "bg-brand-navy",
+                                isFilled && "text-brand-bg",
                             )}>
-                            <Text
-                                className={twMerge(
-                                    "text-brand-txt-sub font-pretendard-medium text-xl",
-                                    isFilled && "text-brand-bg",
-                                )}>
-                                로그인
-                            </Text>
-                        </Pressable>
+                            로그인
+                        </Button>
                     </View>
                 </View>
             </ScrollView>
